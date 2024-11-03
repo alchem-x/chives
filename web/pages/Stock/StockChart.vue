@@ -27,7 +27,7 @@ function createLWChart() {
         },
         timeScale: {
             tickMarkFormatter: (time) => {
-                return dayjs(time).format('hh:mm')
+                return dayjs(time).format('HH:mm')
             },
         },
     })
