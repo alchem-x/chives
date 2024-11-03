@@ -88,7 +88,7 @@ function resetLWChart() {
     createLWChart()
 }
 
-const resetLWChartDebounced = debounce(resetLWChart, 1000)
+const resetLWChartDebounced = debounce(resetLWChart, 200)
 
 onMounted(() => window.addEventListener('resize', resetLWChartDebounced))
 onBeforeUnmount(() => window.addEventListener('resize', resetLWChartDebounced))
