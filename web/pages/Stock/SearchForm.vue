@@ -1,6 +1,6 @@
 <template>
     <div class="search-form">
-        <StockInput :value="inputSymbol" @update:value="onSelectSearch"/>
+        <StockInput :value="inputSymbol" @update:value="onSelectSearch" />
         <NButton size="large" @click="onClickSearch">搜索</NButton>
     </div>
 </template>
@@ -53,6 +53,10 @@ onMounted(async () => {
         inputSymbol.value = route.query.symbol
         stockStore.symbol = route.query.symbol
         await searchSymbol()
+    } else {
+        inputSymbol.value = ''
+        stockStore.symbol = ''
+        stockStore.stockData = null
     }
 })
 </script>

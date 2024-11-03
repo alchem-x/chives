@@ -19,61 +19,64 @@ const chart = shallowRef()
 const stockStore = useStockStore()
 
 function createLWChart() {
-    chart.value = createChart(chartContainer.value, {
-        crosshair: {
-            vertLine: {
-                labelVisible: false,
+    if (stockStore.chartMinute1dData) {
+        const { items } = stockStore.chartMinute1dData
+        chart.value = createChart(chartContainer.value, {
+            crosshair: {
+                vertLine: {
+                    labelVisible: false,
+                },
             },
-        },
-        timeScale: {
-            tickMarkFormatter: (time) => {
-                return dayjs(time).format('HH:mm')
+            timeScale: {
+                tickMarkFormatter: (time) => {
+                    return dayjs(time).format('HH:mm')
+                },
             },
-        },
-        handleScroll:{
-            mouseWheel: false,
-        },
-        handleScale:{
-            mouseWheel: false,
-        }
-    })
-    //
-    const lineSeries = chart.value.addLineSeries()
-    const priceData = stockStore.chartMinute1dData.items.map((it) => {
-        return {
-            time: it.timestamp,
-            value: it.current,
-        }
-    })
-    lineSeries.setData(priceData)
-    //
-    const volumeSeries = chart.value.addHistogramSeries({
-        color: '#26a69a',
-        priceFormat: {
-            type: 'volume',
-        },
-        priceScaleId: '',
-        scaleMargins: {
-            top: 0.7,
-            bottom: 0,
-        },
-    })
-    volumeSeries.priceScale().applyOptions({
-        scaleMargins: {
-            top: 0.7,
-            bottom: 0,
-        },
-    })
-    const volumeData = stockStore.chartMinute1dData.items.map((it) => {
-        return {
-            time: it.timestamp,
-            value: it.volume,
-            color: it.chg >= 0 ? '#ee2500' : '#093',
-        }
-    })
-    volumeSeries.setData(volumeData)
-    //
-    chart.value.timeScale().fitContent()
+            handleScroll: {
+                mouseWheel: false,
+            },
+            handleScale: {
+                mouseWheel: false,
+            }
+        })
+        //
+        const lineSeries = chart.value.addLineSeries()
+        const priceData = items.map((it) => {
+            return {
+                time: it.timestamp,
+                value: it.current,
+            }
+        })
+        lineSeries.setData(priceData)
+        //
+        const volumeSeries = chart.value.addHistogramSeries({
+            color: '#26a69a',
+            priceFormat: {
+                type: 'volume',
+            },
+            priceScaleId: '',
+            scaleMargins: {
+                top: 0.7,
+                bottom: 0,
+            },
+        })
+        volumeSeries.priceScale().applyOptions({
+            scaleMargins: {
+                top: 0.7,
+                bottom: 0,
+            },
+        })
+        const volumeData = stockStore.chartMinute1dData.items.map((it) => {
+            return {
+                time: it.timestamp,
+                value: it.volume,
+                color: it.chg >= 0 ? '#ee2500' : '#093',
+            }
+        })
+        volumeSeries.setData(volumeData)
+        //
+        chart.value.timeScale().fitContent()
+    }
 }
 
 function destroyLWChart() {
