@@ -14,17 +14,20 @@
 </template>
 
 <script setup>
-import { inject, onMounted } from 'vue'
+import { inject, onMounted, watch } from 'vue'
 import { NPageHeader } from 'naive-ui'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useStockStore } from '@/store/stock.js'
+import { useWatchStore } from '@/store/watch.js'
 import WatchListTable from '@/pages/Watch/WatchListTable.vue'
 import StockQuote from './StockQuote.vue'
 import StockChart from './StockChart.vue'
 import SearchForm from './SearchForm.vue'
 
+const route = useRoute()
 const router = useRouter()
 const stockStore = useStockStore()
+const watchStore = useWatchStore()
 
 const guiState = inject('GUI_STATE')
 
@@ -32,8 +35,48 @@ function onBack() {
   router.push('/')
 }
 
+async function searchSymbol() {
+  await stockStore.onSearch()
+  await watchStore.onSearch()
+}
+
 onMounted(async () => {
+  if (route.query.chartTab) {
+    stockStore.chartTab = route.query.chartTab
+  } else {
+    stockStore.chartTab = '1d'
+    stockStore.chartMinuteData = null
+  }
+  if (route.query.symbol) {
+    stockStore.symbol = route.query.symbol
+    await searchSymbol()
+  } else {
+    stockStore.symbol = ''
+    stockStore.stockData = null
+  }
   await stockStore.pollRealtimeStock()
+})
+
+watch(() => stockStore.symbol, (symbol) => {
+  if (route.query.symbol !== symbol) {
+    router.push({
+      query: {
+        ...route.query,
+        symbol,
+      }
+    })
+  }
+})
+
+watch(() => stockStore.chartTab, (chartTab) => {
+  if (route.query.chartTab !== chartTab) {
+    router.push({
+      query: {
+        ...route.query,
+        chartTab,
+      }
+    })
+  }
 })
 </script>
 

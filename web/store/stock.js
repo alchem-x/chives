@@ -7,7 +7,8 @@ export const useStockStore = defineStore('stock', {
         return {
             symbol: '',
             stockData: null,
-            chartMinute1dData: null,
+            chartTab: '1d',
+            chartMinuteData: null,
         }
     },
     getters: {
@@ -27,15 +28,23 @@ export const useStockStore = defineStore('stock', {
                     const quote = data?.[0]
                     if (quote) {
                         Object.assign(this.stockData.quote, quote)
-                        await this.fetchChartMinute1dData()
+                        if (this.chartTab === '1d') {
+                            await this.fetchChartMinuteData('1d')
+                        }
                     }
                 }
+            }
+        },
+        async changeChartTab(ev) {
+            this.chartTab = ev
+            if (this.symbol) {
+                await this.fetchChartMinuteData(ev)
             }
         },
         async onSearch() {
             await Promise.all([
                 this.fetchStockData(),
-                this.fetchChartMinute1dData(),
+                this.fetchChartMinuteData(this.chartTab),
             ])
         },
         async fetchStockData() {
@@ -44,14 +53,14 @@ export const useStockStore = defineStore('stock', {
                 this.stockData = data
             }
         },
-        async fetchChartMinute1dData() {
-            this.chartMinute1dData = null
+        async fetchChartMinuteData(period) {
+            this.chartMinuteData = null
             const data = await getChartMinute({
                 symbol: this.symbol,
-                period: '1d',
+                period,
             })
             if (data) {
-                this.chartMinute1dData = data
+                this.chartMinuteData = data
             }
         }
     },
