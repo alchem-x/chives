@@ -32,12 +32,8 @@ function createLWChart() {
                     return dayjs(time).format('HH:mm')
                 },
             },
-            handleScroll: {
-                mouseWheel: false,
-            },
-            handleScale: {
-                mouseWheel: false,
-            }
+            handleScroll: false,
+            handleScale: false,
         })
         //
         const lineSeries = chart.value.addLineSeries()
