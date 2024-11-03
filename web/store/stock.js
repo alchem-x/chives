@@ -1,16 +1,13 @@
 import { defineStore } from 'pinia'
-import { getStock, getRealtimeStock } from '@/apis/snowball.js'
+import { getStock, getRealtimeStock, getChartMinute } from '@/apis/snowball.js'
 import get from 'lodash/get.js'
-
-function normalizeSymbol(symbol) {
-    return symbol.replace(/:/g, '')
-}
 
 export const useStockStore = defineStore('stock', {
     state() {
         return {
             symbol: '',
             stockData: null,
+            chartMinute1dData: null,
         }
     },
     getters: {
@@ -20,16 +17,13 @@ export const useStockStore = defineStore('stock', {
         stockName() {
             return get(this, 'stockData.quote.name')
         },
-        normalizedSymbol() {
-            return normalizeSymbol(this.symbol)
-        },
     },
     actions: {
         async pollRealtimeStock() {
             while (true) {
                 await new Promise((resolve) => setTimeout(resolve, 2000))
-                if (this.normalizedSymbol && this.isStockTrading) {
-                    const data = await getRealtimeStock(this.normalizedSymbol)
+                if (this.symbol && this.isStockTrading) {
+                    const data = await getRealtimeStock(this.symbol)
                     const quote = data?.[0]
                     if (quote) {
                         Object.assign(this.stockData.quote, quote)
@@ -38,10 +32,26 @@ export const useStockStore = defineStore('stock', {
             }
         },
         async onSearch() {
-            const data = await getStock(this.normalizedSymbol)
+            await Promise.all([
+                this.fetchStockData(),
+                this.fetchChartMinute1dData(),
+            ])
+        },
+        async fetchStockData() {
+            const data = await getStock(this.symbol)
             if (data) {
                 this.stockData = data
             }
         },
+        async fetchChartMinute1dData() {
+            this.chartMinute1dData = null
+            const data = await getChartMinute({
+                symbol: this.symbol,
+                period: '1d',
+            })
+            if (data) {
+                this.chartMinute1dData = data
+            }
+        }
     },
 })

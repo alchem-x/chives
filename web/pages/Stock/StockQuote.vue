@@ -1,6 +1,6 @@
 <template>
     <div class="stock-quote-container">
-        <template v-if="stockData">
+        <template v-if="stockStore.stockData">
             <div v-if="info.Stock">
                 <component :is="info.Stock" />
             </div>
@@ -23,15 +23,12 @@
 import { NButton } from 'naive-ui'
 import { computed } from 'vue'
 import { simplifyNumber } from '@/common/formating.js'
+import { useStockStore } from '@/store/stock.js'
 
-const props = defineProps({
-    stockData: {
-        type: Object,
-    }
-})
+const stockStore = useStockStore()
 
 const info = computed(() => {
-    const { quote, market } = props.stockData
+    const { quote, market } = stockStore.stockData
     if (quote) {
         return {
             Stock: () => (
@@ -72,11 +69,11 @@ const info = computed(() => {
 .stock-quote-container {
     box-sizing: border-box;
     border: 1px solid #efeff5;
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 12px;
     position: relative;
-    container-type: inline-size;
     min-height: 180px;
+    container-type: inline-size;
 
     .loading-segment {
         height: 100%;
@@ -91,7 +88,7 @@ const info = computed(() => {
     }
 
     :deep(.stock-name) {
-        >* {
+        > * {
             font-size: 16px;
             color: #111;
         }
@@ -130,6 +127,7 @@ const info = computed(() => {
             }
         }
     }
+
     @container (max-width: 780px) {
         .item-container {
             column-count: 2;

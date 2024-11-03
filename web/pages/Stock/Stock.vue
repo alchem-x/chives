@@ -1,8 +1,11 @@
 <template>
   <div class="stock-container">
     <NPageHeader :on-back="onBack" title="股票" />
-    <SearchForm/>
-    <StockQuote :stock-data="stockStore.stockData" />
+    <SearchForm />
+    <div class="stock-info">
+      <StockQuote />
+      <StockChart />
+    </div>
     <div v-if="guiState.token" class="watch-segment">
       <NPageHeader title="盯盘" />
       <WatchListTable />
@@ -17,6 +20,7 @@ import { useRouter } from 'vue-router'
 import { useStockStore } from '@/store/stock.js'
 import WatchListTable from '@/pages/Watch/WatchListTable.vue'
 import StockQuote from './StockQuote.vue'
+import StockChart from './StockChart.vue'
 import SearchForm from './SearchForm.vue'
 
 const router = useRouter()
@@ -38,8 +42,11 @@ onMounted(async () => {
   padding: 1rem;
   box-sizing: border-box;
 
-  :deep(.stock-quote-container) {
+  .stock-info {
+    display: flex;
+    flex-direction: column;
     margin-top: .5rem;
+    gap: .5rem;
   }
 
   .watch-segment {

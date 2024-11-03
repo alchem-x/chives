@@ -124,7 +124,7 @@ function onClickNew() {
         type: 'UP_TO',
     }
     if (route.name === 'Stock') {
-        item.symbol = stockStore.normalizedSymbol
+        item.symbol = stockStore.symbol
         item.name = stockStore.stockName
     }
     item.barkAPI = guiState.barkAPI
@@ -134,7 +134,7 @@ function onClickNew() {
 
 const itemList = computed(() => {
     if (route.name === 'Stock') {
-        return watchStore.watchList.filter((it) => it.symbol === stockStore.normalizedSymbol)
+        return watchStore.watchList.filter((it) => it.symbol === stockStore.symbol)
     } else {
         return watchStore.watchList
     }

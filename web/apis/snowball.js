@@ -21,5 +21,11 @@ export async function getSuggestStock(q) {
     } else {
         return []
     }
+}
 
+export async function getChartMinute({symbol, period}) {
+    const params = new URLSearchParams({symbol, period })
+    const response = await fetch('/api/snowball/chart/minute?' + params)
+    const r = await response.json()
+    return r?.data
 }

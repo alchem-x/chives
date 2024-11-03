@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getStock, getRealtimeStock, getSuggestStock } from '../services/snowball.js'
+import { getStock, getRealtimeStock, getSuggestStock, getChartMinute } from '../services/snowball.js'
 
 export const snowball = Router()
 
@@ -20,5 +20,11 @@ snowball.get('/api/snowball/realtime-stock', async (req, res) => {
 snowball.get('/api/snowball/suggest-stock', async (req, res) => {
     const { q } = req.query
     const r = await getSuggestStock(q)
+    res.json(r)
+})
+
+snowball.get('/api/snowball/chart/minute', async (req, res) => {
+    const { symbol, period, } = req.query
+    const r = await getChartMinute({ symbol, period, })
     res.json(r)
 })
