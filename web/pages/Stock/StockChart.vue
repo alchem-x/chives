@@ -20,7 +20,7 @@ const stockStore = useStockStore()
 
 function createLWChart() {
     if (stockStore.chartMinute1dData) {
-        const { items } = stockStore.chartMinute1dData
+        const { items, last_close:lastClose } = stockStore.chartMinute1dData
         chart.value = createChart(chartContainer.value, {
             crosshair: {
                 vertLine: {
@@ -66,11 +66,11 @@ function createLWChart() {
                 bottom: 0,
             },
         })
-        const volumeData = stockStore.chartMinute1dData.items.map((it) => {
+        const volumeData = items.map((it, index) => {
             return {
                 time: it.timestamp,
                 value: it.volume,
-                color: it.chg >= 0 ? '#ee2500' : '#093',
+                color: it.current >= (items[index -1]?.current ?? lastClose) ? '#ee2500' : '#093',
             }
         })
         volumeSeries.setData(volumeData)
