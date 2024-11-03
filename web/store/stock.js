@@ -27,6 +27,7 @@ export const useStockStore = defineStore('stock', {
                     const quote = data?.[0]
                     if (quote) {
                         Object.assign(this.stockData.quote, quote)
+                        await this.fetchChartMinute1dData()
                     }
                 }
             }
