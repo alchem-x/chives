@@ -8,10 +8,11 @@
 </template>
 
 <script setup>
-import { shallowRef, ref, watch } from 'vue';
+import { shallowRef, ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { createChart } from 'lightweight-charts'
 import { NButton } from 'naive-ui'
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'
+import debounce from 'lodash/debounce'
 import { useStockStore } from '@/store/stock.js'
 
 const chartContainer = ref()
@@ -20,7 +21,7 @@ const stockStore = useStockStore()
 
 function createLWChart() {
     if (stockStore.chartMinute1dData) {
-        const { items, last_close:lastClose } = stockStore.chartMinute1dData
+        const { items, last_close: lastClose } = stockStore.chartMinute1dData
         chart.value = createChart(chartContainer.value, {
             crosshair: {
                 vertLine: {
@@ -66,7 +67,7 @@ function createLWChart() {
             return {
                 time: it.timestamp,
                 value: it.volume,
-                color: it.current >= (items[index -1]?.current ?? lastClose) ? '#ee2500' : '#093',
+                color: it.current >= (items[index - 1]?.current ?? lastClose) ? '#ee2500' : '#093',
             }
         })
         volumeSeries.setData(volumeData)
@@ -86,6 +87,11 @@ function resetLWChart() {
     destroyLWChart()
     createLWChart()
 }
+
+const resetLWChartDebounced = debounce(resetLWChart, 1000)
+
+onMounted(() => window.addEventListener('resize', resetLWChartDebounced))
+onBeforeUnmount(() => window.addEventListener('resize', resetLWChartDebounced))
 
 watch(() => stockStore.chartMinute1dData, (data) => {
     if (data) {
