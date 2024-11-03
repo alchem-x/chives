@@ -1,16 +1,12 @@
 <template>
     <div class="stock-chart-container">
         <div class="lw-chart" ref="chartContainer"></div>
-        <div class="action-line">
-            <NButton @click="resetLWChart">重置</NButton>
-        </div>
     </div>
 </template>
 
 <script setup>
 import { shallowRef, ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { createChart } from 'lightweight-charts'
-import { NButton } from 'naive-ui'
 import dayjs from 'dayjs'
 import debounce from 'lodash/debounce'
 import { useStockStore } from '@/store/stock.js'
