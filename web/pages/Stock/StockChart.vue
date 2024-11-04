@@ -120,7 +120,7 @@ watch(() => stockStore.chartMinuteData, (data) => {
         margin-top: 1rem;
         box-sizing: border-box;
         overflow: hidden;
-        height: 220px;
+        height: 200px;
         direction: ltr;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
