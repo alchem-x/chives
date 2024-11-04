@@ -20,6 +20,12 @@ export const useStockStore = defineStore('stock', {
         },
     },
     actions: {
+        async fetchMarketStatus() {
+            const data = await getStock(this.symbol)
+            if (data && this.stockData) {
+                Object.assign(this.stockData.market, data.market)
+            }
+        },
         async pollRealtimeStock() {
             let loopCount = 0
             while (true) {
@@ -30,6 +36,7 @@ export const useStockStore = defineStore('stock', {
                     if (quote) {
                         Object.assign(this.stockData.quote, quote)
                         if (this.chartType === '1d' && loopCount % 20 === 0) {
+                            await this.fetchMarketStatus()
                             await this.fetchChartMinuteData('1d')
                         }
                     }
