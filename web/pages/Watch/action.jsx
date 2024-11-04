@@ -70,7 +70,7 @@ function createWatchItemForm({ formRef, formState }) {
                     size="medium"
                     rules={rules}>
                     <NFormItem label="股票代码" path="symbol">
-                        <StockInput vModel:value={formState.symbol} vModel:name={formState.name} />
+                        <StockInput vModel:value={formState.symbol} vModel:name={formState.name} immediate/>
                     </NFormItem>
                     <NFormItem label="事件类型" path="type" >
                         <NSelect size="large" vModel:value={formState.type} options={WATCH_TYPE_OPTIONS} placeholder={rules.type.message} />

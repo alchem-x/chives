@@ -15,7 +15,7 @@ import debounce from 'lodash/debounce.js'
 import { message } from '@/common/providers.jsx'
 import { getSuggestStock } from '@/apis/snowball.js'
 
-const props = defineProps(['value', 'name'])
+const props = defineProps(['value', 'name','immediate'])
 const emit = defineEmits(['update:value', 'update:name'])
 
 const options = ref([])
@@ -60,6 +60,8 @@ watch(() => props.value, async (symbol) => {
     if (symbol) {
         await onSuggest(symbol)
     }
-})
+}, { 
+    immediate: props.immediate,
+ })
 
 </script>
