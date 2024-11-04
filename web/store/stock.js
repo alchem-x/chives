@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { getStock, getRealtimeStock, getChartMinute } from '@/apis/snowball.js'
 import get from 'lodash/get.js'
 import { useWatchStore } from '@/store/watch.js'
+import { getFromLocalStorage, setToLocalStorage } from '@/common/loca_storage'
 
 export const useStockStore = defineStore('stock', {
     state() {
@@ -9,7 +10,7 @@ export const useStockStore = defineStore('stock', {
             symbol: '',
             stockData: null,
             chartMinuteData: null,
-            recentlyStockList: [],
+            recentlyStockList: getFromLocalStorage('cw_recently_stock_list') ?? [],
         }
     },
     getters: {
@@ -25,6 +26,7 @@ export const useStockStore = defineStore('stock', {
             const findIndex = this.recentlyStockList.findIndex((it) => it.code === symbol)
             if (findIndex > -1) {
                 this.recentlyStockList.splice(findIndex, 1)
+                setToLocalStorage('cw_recently_stock_list', this.recentlyStockList)
             }
         },
         appentCurrentToRecentlyStockList() {
@@ -33,6 +35,7 @@ export const useStockStore = defineStore('stock', {
                     code: this.symbol,
                     name: get(this, 'stockData.quote.name', this.symbol),
                 })
+                setToLocalStorage('cw_recently_stock_list', this.recentlyStockList)
             }
         },
         async changeSymbol(symbol) {
