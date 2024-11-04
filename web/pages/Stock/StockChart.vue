@@ -107,6 +107,8 @@ onBeforeUnmount(() => {
 watch(() => stockStore.chartMinuteData, (data) => {
     if (data) {
         resetLWChart()
+    } else {
+        destroyLWChart()
     }
 })
 </script>
