@@ -1,0 +1,22 @@
+<template>
+         <div class="loading-segment">
+                <img :src="'/images/loading-coin.svg'" alt="">
+            </div>
+</template>
+
+<script setup>
+</script>
+
+<style scoped lang="less">
+.loading-segment {
+        height: 100%;
+        display: grid;
+        position: absolute;
+        inset: 0;
+        place-items: center;
+
+        img {
+            user-select: none;
+        }
+    }
+</style>

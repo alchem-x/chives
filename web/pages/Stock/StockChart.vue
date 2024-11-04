@@ -1,5 +1,6 @@
 <template>
     <div class="stock-chart-container">
+        <LoadingSegment v-if="!chart" />
         <div class="lw-chart" ref="chartContainer"></div>
     </div>
 </template>
@@ -11,6 +12,7 @@ import dayjs from 'dayjs'
 import debounce from 'lodash/debounce'
 import { useStockStore } from '@/store/stock.js'
 import { simplifyNumber } from '@/common/formating.js'
+import LoadingSegment from '@/common/LoadingSegment.vue'
 
 const chartContainer = ref()
 const chart = shallowRef()
@@ -35,9 +37,9 @@ function createLWChart() {
             handleScale: false,
             localization: {
                 priceFormatter: (price) => {
-                    return price >= 10000 
-                    ? simplifyNumber(price) 
-                    : parseFloat(price.toFixed(3))
+                    return price >= 10000
+                        ? simplifyNumber(price)
+                        : parseFloat(price.toFixed(3))
                 },
             },
         })
@@ -123,6 +125,7 @@ watch(() => stockStore.chartMinuteData, (data) => {
 
 <style scoped lang="less">
 .stock-chart-container {
+    position: relative;
     box-sizing: border-box;
     border: 1px solid #efeff5;
     border-radius: 3px;

@@ -12,9 +12,7 @@
             </div>
         </template>
         <template v-else>
-            <div class="loading-segment">
-                <img :src="'/images/loading-coin.svg'" alt="">
-            </div>
+            <LoadingSegment />
         </template>
     </div>
 </template>
@@ -25,6 +23,7 @@ import { computed } from 'vue'
 import { simplifyNumber } from '@/common/formating.js'
 import { useStockStore } from '@/store/stock.js'
 import isNil from 'lodash/isNil.js'
+import LoadingSegment from '@/common/LoadingSegment.vue'
 
 const stockStore = useStockStore()
 
@@ -80,18 +79,6 @@ const info = computed(() => {
     position: relative;
     min-height: 200px;
     container-type: inline-size;
-
-    .loading-segment {
-        height: 100%;
-        display: grid;
-        position: absolute;
-        inset: 0;
-        place-items: center;
-
-        img {
-            user-select: none;
-        }
-    }
 
     :deep(.stock-name) {
         font-size: 16px;
