@@ -51,6 +51,7 @@ const info = computed(() => {
                 { name: '换手', value: quote.turnover_rate ? quote.turnover_rate + '%' : '', },
                 { name: '振幅', value: quote.amplitude ? quote.amplitude + '%' : '', },
                 { name: '货币单位', value: quote.currency, },
+                { name: '交易所', value: quote.exchange, },
                 { name: '状态', value: market?.status, },
             ]
         }
@@ -88,7 +89,7 @@ const info = computed(() => {
     }
 
     :deep(.stock-name) {
-        > * {
+        >* {
             font-size: 16px;
             color: #111;
         }
