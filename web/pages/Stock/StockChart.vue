@@ -1,6 +1,6 @@
 <template>
     <div class="stock-chart-container">
-        <LoadingSegment v-if="!chart" />
+        <LoadingSegment v-if="!stockStore.symbol" />
         <div class="lw-chart" ref="chartContainer"></div>
     </div>
 </template>
