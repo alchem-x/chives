@@ -29,7 +29,7 @@ import isNil from 'lodash/isNil.js'
 const stockStore = useStockStore()
 
 const info = computed(() => {
-    const { quote, market } = stockStore.stockData
+    const { quote, market = {} } = stockStore.stockData
     if (quote) {
         const items = [
             { name: '价格', value: quote.current ? `${quote.current} (${quote.chg >= 0 ? `+${quote.chg ?? 0}` : quote.chg}, ${quote.percent >= 0 ? `+${quote.percent ?? 0}` : quote.percent}%)` : '', className: { red: quote.chg > 0, green: quote.chg < 0 } },
@@ -45,12 +45,14 @@ const info = computed(() => {
             { name: '振幅', value: quote.amplitude ? quote.amplitude + '%' : '', },
             { name: '货币单位', value: quote.currency, },
             { name: '交易所', value: quote.exchange, },
-            { name: '状态', value: market?.status, },
+            { name: '状态', value: market.status, },
         ]
         const Stock = () => (
-            <a class="stock-name" href={`https://xueqiu.com/S/${quote.symbol}`} target="_blank">
-                <NButton quaternary type="info">
-                    {quote.name}({quote.symbol})
+            <a href={`https://xueqiu.com/S/${quote.symbol}`} target="_blank">
+                <NButton quaternary type="info" size="large">
+                    <span class="stock-name">
+                        {quote.name}({quote.symbol})
+                    </span>
                 </NButton>
             </a>
         )
@@ -92,10 +94,8 @@ const info = computed(() => {
     }
 
     :deep(.stock-name) {
-        >* {
-            font-size: 16px;
-            color: #111;
-        }
+        font-size: 16px;
+        color: #111;
     }
 
     .item-container {
