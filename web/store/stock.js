@@ -30,7 +30,7 @@ export const useStockStore = defineStore('stock', {
             }
         },
         appentCurrentToRecentlyStockList() {
-            if (this.symbol) {
+            if (this.symbol && this.recentlyStockList.every((it) => it.code !== this.symbol)) {
                 this.recentlyStockList.unshift({
                     code: this.symbol,
                     name: get(this, 'stockData.quote.name', this.symbol),
@@ -39,11 +39,10 @@ export const useStockStore = defineStore('stock', {
             }
         },
         async changeSymbol(symbol) {
-            this.appentCurrentToRecentlyStockList()
-            this.deleteRencetlyStock(symbol)
             this.symbol = symbol
             if (this.symbol) {
                 await this.onSearch()
+                this.appentCurrentToRecentlyStockList()
                 await useWatchStore().onSearch()
             } else {
                 this.stockData = null

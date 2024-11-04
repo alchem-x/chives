@@ -1,6 +1,6 @@
 <template>
     <div v-if="stockStore.recentlyStockList.length" class="recently-stock-container">
-        <NTag v-for="(it) of stockStore.recentlyStockList" @click="onSelectStock(it)" @close="onDelete(it)" size="large"
+        <NTag v-for="(it) of stockStore.recentlyStockList" :bordered="false" @click="onSelectStock(it)" @close="onDelete(it)" size="large"
             closable>{{ it.name }}</NTag>
     </div>
 </template>

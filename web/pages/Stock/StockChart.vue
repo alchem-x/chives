@@ -16,7 +16,7 @@ const chart = shallowRef()
 const stockStore = useStockStore()
 
 function createLWChart() {
-    if (stockStore.chartMinuteData) {
+    if (stockStore.symbol && stockStore.chartMinuteData) {
         const { items, last_close: lastClose } = stockStore.chartMinuteData
         chart.value = createChart(chartContainer.value, {
             crosshair: {
