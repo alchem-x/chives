@@ -24,36 +24,39 @@ import { NButton } from 'naive-ui'
 import { computed } from 'vue'
 import { simplifyNumber } from '@/common/formating.js'
 import { useStockStore } from '@/store/stock.js'
+import isNil from 'lodash/isNil.js'
 
 const stockStore = useStockStore()
 
 const info = computed(() => {
     const { quote, market } = stockStore.stockData
     if (quote) {
+        const items = [
+            { name: '价格', value: quote.current ? `${quote.current} (${quote.chg >= 0 ? `+${quote.chg ?? 0}` : quote.chg}, ${quote.percent >= 0 ? `+${quote.percent ?? 0}` : quote.percent}%)` : '', className: { red: quote.chg > 0, green: quote.chg < 0 } },
+            { name: '最高', value: quote.high, className: { red: quote.high > quote.last_close, green: quote.high < quote.last_close } },
+            { name: '最低', value: quote.low, className: { red: quote.low > quote.last_close, green: quote.low < quote.last_close } },
+            { name: '今开', value: quote.open, className: { red: quote.open > quote.last_close, green: quote.open < quote.last_close } },
+            { name: '昨收', value: quote.last_close, },
+            { name: '涨停', value: quote.limit_up, className: { red: quote.limit_up > quote.last_close, green: quote.limit_up < quote.last_close } },
+            { name: '跌停', value: quote.limit_down, className: { red: quote.limit_down > quote.last_close, green: quote.limit_down < quote.last_close } },
+            { name: '成交量', value: quote.volume ? simplifyNumber(Math.trunc(quote.volume / 100)) + '手' : '', },
+            { name: '成交额', value: simplifyNumber(quote.amount), },
+            { name: '换手', value: quote.turnover_rate ? quote.turnover_rate + '%' : '', },
+            { name: '振幅', value: quote.amplitude ? quote.amplitude + '%' : '', },
+            { name: '货币单位', value: quote.currency, },
+            { name: '交易所', value: quote.exchange, },
+            { name: '状态', value: market?.status, },
+        ]
+        const Stock = () => (
+            <a class="stock-name" href={`https://xueqiu.com/S/${quote.symbol}`} target="_blank">
+                <NButton quaternary type="info">
+                    {quote.name}({quote.symbol})
+                </NButton>
+            </a>
+        )
         return {
-            Stock: () => (
-                <a class="stock-name" href={`https://xueqiu.com/S/${quote.symbol}`} target="_blank">
-                    <NButton quaternary type="info">
-                        {quote.name}({quote.symbol})
-                    </NButton>
-                </a>
-            ),
-            items: [
-                { name: '价格', value: quote.current ? `${quote.current} (${quote.chg >= 0 ? `+${quote.chg ?? 0}` : quote.chg}, ${quote.percent >= 0 ? `+${quote.percent ?? 0}` : quote.percent}%)` : '', className: { red: quote.chg > 0, green: quote.chg < 0 } },
-                { name: '最高', value: quote.high, className: { red: quote.high > quote.last_close, green: quote.high < quote.last_close } },
-                { name: '最低', value: quote.low, className: { red: quote.low > quote.last_close, green: quote.low < quote.last_close } },
-                { name: '今开', value: quote.open, className: { red: quote.open > quote.last_close, green: quote.open < quote.last_close } },
-                { name: '昨收', value: quote.last_close, },
-                { name: '涨停', value: quote.limit_up, className: { red: quote.limit_up > quote.last_close, green: quote.limit_up < quote.last_close } },
-                { name: '跌停', value: quote.limit_down, className: { red: quote.limit_down > quote.last_close, green: quote.limit_down < quote.last_close } },
-                { name: '成交量', value: quote.volume ? simplifyNumber(Math.trunc(quote.volume / 100)) + '手' : '', },
-                { name: '成交额', value: simplifyNumber(quote.amount), },
-                { name: '换手', value: quote.turnover_rate ? quote.turnover_rate + '%' : '', },
-                { name: '振幅', value: quote.amplitude ? quote.amplitude + '%' : '', },
-                { name: '货币单位', value: quote.currency, },
-                { name: '交易所', value: quote.exchange, },
-                { name: '状态', value: market?.status, },
-            ]
+            Stock,
+            items: items.filter((it) => !isNil(it.value))
         }
     } else {
         return {
