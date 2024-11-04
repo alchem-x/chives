@@ -10,6 +10,7 @@ import { createChart } from 'lightweight-charts'
 import dayjs from 'dayjs'
 import debounce from 'lodash/debounce'
 import { useStockStore } from '@/store/stock.js'
+import { simplifyNumber } from '@/common/formating.js'
 
 const chartContainer = ref()
 const chart = shallowRef()
@@ -32,6 +33,13 @@ function createLWChart() {
             },
             handleScroll: false,
             handleScale: false,
+            localization: {
+                priceFormatter: (price) => {
+                    return price >= 10000 
+                    ? simplifyNumber(price) 
+                    : parseFloat(price.toFixed(3))
+                },
+            },
         })
         //
         {
