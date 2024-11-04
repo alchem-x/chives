@@ -1,38 +1,35 @@
 <template>
     <div class="search-form">
-        <StockInput :value="inputSymbol" @update:value="onSelectSearch" />
+        <StockInput :value="stockStore.symbol" @update:value="onSelectSearch" />
         <NButton size="large" @click="onClickSearch">搜索</NButton>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+// import { ref, watch } from 'vue'
+// import { useRoute } from 'vue-router'
 import { NButton } from 'naive-ui'
 import { useStockStore } from '@/store/stock.js'
-import { useWatchStore } from '@/store/watch.js'
 import StockInput from '../../common/StockInput.vue'
 
-const route = useRoute()
+// const route = useRoute()
 const stockStore = useStockStore()
-const watchStore = useWatchStore()
 
-const inputSymbol = ref(route.query.symbol ?? '')
+// const inputSymbol = ref(route.query.symbol ?? '')
 
-async function searchSymbol() {
-    await stockStore.onSearch()
-    await watchStore.onSearch()
-}
+// watch(() => stockStore.symbol, (symbol) => {
+//     if (inputSymbol.value !== symbol) {
+//         inputSymbol.value = symbol
+//     }
+// })
 
 async function onSelectSearch(ev) {
-    inputSymbol.value = ev
-    stockStore.symbol = inputSymbol.value
-    await searchSymbol()
+    // inputSymbol.value = ev
+    await stockStore.changeSymbol(ev)
 }
 
 async function onClickSearch() {
-    stockStore.symbol = inputSymbol.value
-    await searchSymbol()
+    await stockStore.changeSymbol(stockStore.symbol)
 }
 </script>
 

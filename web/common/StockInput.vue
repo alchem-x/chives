@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref, watch } from 'vue'
 import { NSelect } from 'naive-ui'
 import debounce from 'lodash/debounce.js'
 import { message } from '@/common/providers.jsx'
@@ -56,9 +56,10 @@ async function onUpdateValue(ev) {
     await onSuggest(ev)
 }
 
-onMounted(async () => {
-    if (props.value) {
-        await onSuggest(props.value)
+watch(() => props.value, async (symbol) => {
+    if (symbol) {
+        await onSuggest(symbol)
     }
 })
+
 </script>

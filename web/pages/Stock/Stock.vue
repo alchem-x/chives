@@ -2,6 +2,7 @@
   <div class="stock-container">
     <NPageHeader :on-back="onBack" title="股票" />
     <SearchForm />
+    <OptionalStock />
     <div class="stock-info">
       <StockQuote />
       <StockChart />
@@ -14,21 +15,20 @@
 </template>
 
 <script setup>
-import { inject, onMounted, watch } from 'vue'
+import { inject, onMounted } from 'vue'
 import { NPageHeader } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router'
 import { useStockStore } from '@/store/stock.js'
-import { useWatchStore } from '@/store/watch.js'
 import { useWatchQuery } from '@/common/watchQuery.js'
 import StockQuote from './StockQuote.vue'
 import StockChart from './StockChart.vue'
 import SearchForm from './SearchForm.vue'
+import OptionalStock from './OptionalStock.vue'
 import WatchListTable from '@/pages/Watch/WatchListTable.vue'
 
 const route = useRoute()
 const router = useRouter()
 const stockStore = useStockStore()
-const watchStore = useWatchStore()
 
 const guiState = inject('GUI_STATE')
 
@@ -36,29 +36,16 @@ function onBack() {
   router.push('/')
 }
 
-async function searchSymbol() {
-  await stockStore.onSearch()
-  await watchStore.onSearch()
-}
-
 onMounted(async () => {
-  if (route.query.chartType) {
-    stockStore.chartType = route.query.chartType
-  } else {
-    stockStore.chartType = '1d'
-    stockStore.chartMinuteData = null
-  }
   if (route.query.symbol) {
-    stockStore.symbol = route.query.symbol
-    await searchSymbol()
+    await stockStore.changeSymbol(route.query.symbol)
   } else {
-    stockStore.symbol = ''
-    stockStore.stockData = null
+    await stockStore.changeSymbol('')
   }
   await stockStore.pollRealtimeStock()
 })
 
-useWatchQuery(stockStore, ['symbol', 'chartType'])
+useWatchQuery(stockStore, ['symbol'])
 </script>
 
 <style scoped lang="less">
