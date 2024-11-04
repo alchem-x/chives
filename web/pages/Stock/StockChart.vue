@@ -130,7 +130,6 @@ watch(() => stockStore.chartMinuteData, (data) => {
     overflow: hidden;
 
     .lw-chart {
-        margin-top: 1rem;
         box-sizing: border-box;
         overflow: hidden;
         height: 200px;

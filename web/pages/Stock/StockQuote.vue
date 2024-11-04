@@ -76,7 +76,7 @@ const info = computed(() => {
     border-radius: 3px;
     padding: 12px;
     position: relative;
-    min-height: 168px;
+    min-height: 200px;
     container-type: inline-size;
 
     .loading-segment {
