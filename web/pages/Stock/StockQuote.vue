@@ -33,7 +33,7 @@ const info = computed(() => {
         return {
             Stock: () => (
                 <a class="stock-name" href={`https://xueqiu.com/S/${quote.symbol}`} target="_blank">
-                    <NButton text>
+                    <NButton quaternary>
                         {quote.name}({quote.symbol})
                     </NButton>
                 </a>
