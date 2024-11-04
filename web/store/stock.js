@@ -30,15 +30,19 @@ export const useStockStore = defineStore('stock', {
             let loopCount = 0
             while (true) {
                 await new Promise((resolve) => setTimeout(resolve, 2000))
-                if (this.symbol && this.isStockTrading) {
-                    const data = await getRealtimeStock(this.symbol)
-                    const quote = data?.[0]
-                    if (quote) {
-                        Object.assign(this.stockData.quote, quote)
-                        if (this.chartType === '1d' && loopCount % 20 === 0) {
-                            await this.fetchMarketStatus()
-                            await this.fetchChartMinuteData('1d')
+                if (this.symbol) {
+                    if (this.isStockTrading) {
+                        const data = await getRealtimeStock(this.symbol)
+                        const quote = data?.[0]
+                        if (quote) {
+                            Object.assign(this.stockData.quote, quote)
+                            if (this.chartType === '1d' && loopCount % 20 === 0) {
+                                await this.fetchChartMinuteData('1d')
+                            }
                         }
+                    }
+                    if (loopCount % 30 === 0) {
+                        await this.fetchMarketStatus()
                     }
                 }
                 loopCount++
