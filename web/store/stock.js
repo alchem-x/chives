@@ -46,6 +46,7 @@ export const useStockStore = defineStore('stock', {
                 await useWatchStore().onSearch()
             } else {
                 this.stockData = null
+                this.chartMinuteData = null
             }
         },
         async fetchMarketStatus() {
