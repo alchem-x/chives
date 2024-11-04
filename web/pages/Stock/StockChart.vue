@@ -16,7 +16,7 @@ const chart = shallowRef()
 const stockStore = useStockStore()
 
 function createLWChart() {
-    if (stockStore.symbol && stockStore.chartMinuteData) {
+    if (stockStore.chartMinuteData) {
         const { items, last_close: lastClose } = stockStore.chartMinuteData
         chart.value = createChart(chartContainer.value, {
             crosshair: {
@@ -95,9 +95,12 @@ function resetLWChart() {
 
 const resetLWChartDebounced = debounce(resetLWChart, 100)
 
-onMounted(() => window.addEventListener('resize', resetLWChartDebounced))
-onBeforeUnmount(() => {
+onMounted(() => {
     window.addEventListener('resize', resetLWChartDebounced)
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', resetLWChartDebounced)
     destroyLWChart()
 })
 
