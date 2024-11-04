@@ -39,7 +39,7 @@ const info = computed(() => {
                 </a>
             ),
             items: [
-                { name: '价格', value: quote.current ? `${quote.current} (${quote.chg >= 0 ? `+${quote.chg}` : quote.chg}, ${quote.percent >= 0 ? `+${quote.percent}` : quote.percent}%)` : '', className: { red: quote.chg > 0, green: quote.chg < 0 } },
+                { name: '价格', value: quote.current ? `${quote.current} (${quote.chg >= 0 ? `+${quote.chg ?? 0}` : quote.chg}, ${quote.percent >= 0 ? `+${quote.percent ?? 0}` : quote.percent}%)` : '', className: { red: quote.chg > 0, green: quote.chg < 0 } },
                 { name: '最高', value: quote.high, className: { red: quote.high > quote.last_close, green: quote.high < quote.last_close } },
                 { name: '最低', value: quote.low, className: { red: quote.low > quote.last_close, green: quote.low < quote.last_close } },
                 { name: '今开', value: quote.open, className: { red: quote.open > quote.last_close, green: quote.open < quote.last_close } },
