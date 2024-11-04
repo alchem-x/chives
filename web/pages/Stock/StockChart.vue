@@ -1,9 +1,5 @@
 <template>
     <div class="stock-chart-container">
-        <NTabs size="large" type="line" :value="stockStore.chartTab" @update:value="stockStore.changeChartTab">
-            <NTab name="1d">分时</NTab>
-            <NTab name="5d">五日</NTab>
-        </NTabs>
         <div class="lw-chart" ref="chartContainer"></div>
     </div>
 </template>
@@ -11,7 +7,6 @@
 <script setup>
 import { shallowRef, ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { createChart } from 'lightweight-charts'
-import { NTabs, NTab } from 'naive-ui'
 import dayjs from 'dayjs'
 import debounce from 'lodash/debounce'
 import { useStockStore } from '@/store/stock.js'
@@ -23,35 +18,18 @@ const stockStore = useStockStore()
 function createLWChart() {
     if (stockStore.chartMinuteData) {
         const { items, last_close: lastClose } = stockStore.chartMinuteData
-        const timeScale = {
-            borderVisible: false,
-            // uniformDistribution: true,
-        }
-        switch (stockStore.chartTab) {
-            case '1d':
-                Object.assign(timeScale, {
-                    tickMarkFormatter: (time) => {
-                        return dayjs(time).format('HH:mm')
-                    }
-                })
-                break
-            case '5d':
-                Object.assign(timeScale, {
-                    tickMarkFormatter: (time) => {
-                        return dayjs(time).format('MM-DD')
-                    }
-                })
-                break
-            default:
-        }
-
         chart.value = createChart(chartContainer.value, {
             crosshair: {
                 vertLine: {
                     labelVisible: false,
                 },
             },
-            timeScale,
+            timeScale: {
+                borderVisible: false,
+                tickMarkFormatter: (time) => {
+                    return dayjs(time).format('HH:mm')
+                }
+            },
             handleScroll: false,
             handleScale: false,
         })

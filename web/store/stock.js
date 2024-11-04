@@ -7,7 +7,7 @@ export const useStockStore = defineStore('stock', {
         return {
             symbol: '',
             stockData: null,
-            chartTab: '1d',
+            chartType: '1d',
             chartMinuteData: null,
         }
     },
@@ -28,23 +28,17 @@ export const useStockStore = defineStore('stock', {
                     const quote = data?.[0]
                     if (quote) {
                         Object.assign(this.stockData.quote, quote)
-                        if (this.chartTab === '1d') {
+                        if (this.chartType === '1d') {
                             await this.fetchChartMinuteData('1d')
                         }
                     }
                 }
             }
         },
-        async changeChartTab(ev) {
-            this.chartTab = ev
-            if (this.symbol) {
-                await this.fetchChartMinuteData(ev)
-            }
-        },
         async onSearch() {
             await Promise.all([
                 this.fetchStockData(),
-                this.fetchChartMinuteData(this.chartTab),
+                this.fetchChartMinuteData(this.chartType),
             ])
         },
         async fetchStockData() {

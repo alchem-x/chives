@@ -19,10 +19,11 @@ import { NPageHeader } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router'
 import { useStockStore } from '@/store/stock.js'
 import { useWatchStore } from '@/store/watch.js'
-import WatchListTable from '@/pages/Watch/WatchListTable.vue'
+import { useWatchQuery } from '@/common/watchQuery.js'
 import StockQuote from './StockQuote.vue'
 import StockChart from './StockChart.vue'
 import SearchForm from './SearchForm.vue'
+import WatchListTable from '@/pages/Watch/WatchListTable.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -41,10 +42,10 @@ async function searchSymbol() {
 }
 
 onMounted(async () => {
-  if (route.query.chartTab) {
-    stockStore.chartTab = route.query.chartTab
+  if (route.query.chartType) {
+    stockStore.chartType = route.query.chartType
   } else {
-    stockStore.chartTab = '1d'
+    stockStore.chartType = '1d'
     stockStore.chartMinuteData = null
   }
   if (route.query.symbol) {
@@ -57,27 +58,7 @@ onMounted(async () => {
   await stockStore.pollRealtimeStock()
 })
 
-watch(() => stockStore.symbol, (symbol) => {
-  if (route.query.symbol !== symbol) {
-    router.push({
-      query: {
-        ...route.query,
-        symbol,
-      }
-    })
-  }
-})
-
-watch(() => stockStore.chartTab, (chartTab) => {
-  if (route.query.chartTab !== chartTab) {
-    router.push({
-      query: {
-        ...route.query,
-        chartTab,
-      }
-    })
-  }
-})
+useWatchQuery(stockStore, ['symbol', 'chartType'])
 </script>
 
 <style scoped lang="less">
