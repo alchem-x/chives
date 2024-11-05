@@ -28,7 +28,7 @@ import LoadingSegment from '@/common/LoadingSegment.vue'
 const stockStore = useStockStore()
 
 const info = computed(() => {
-    const { quote, market = {} } = stockStore.stockData
+    const { quote, market = {}, others = {} } = stockStore.stockData
     if (quote) {
         const items = [
             { name: '价格', value: quote.current ? `${quote.current} (${quote.chg >= 0 ? `+${quote.chg ?? 0}` : quote.chg}, ${quote.percent >= 0 ? `+${quote.percent ?? 0}` : quote.percent}%)` : '', className: { red: quote.chg > 0, green: quote.chg < 0 } },
@@ -38,6 +38,8 @@ const info = computed(() => {
             { name: '昨收', value: quote.last_close, },
             { name: '涨停', value: quote.limit_up, className: { red: quote.limit_up > quote.last_close, green: quote.limit_up < quote.last_close } },
             { name: '跌停', value: quote.limit_down, className: { red: quote.limit_down > quote.last_close, green: quote.limit_down < quote.last_close } },
+            { name: '量比', value: quote.volume_ratio, className: { red: quote.volume_ratio > 1, green: quote.volume_ratio < 1 } },
+            { name: '委比', value: others.pankou_ratio + '%', className: { red: others.pankou_ratio > 0, green: others.pankou_ratio < 0 } },
             { name: '成交量', value: quote.volume ? simplifyNumber(Math.trunc(quote.volume / 100)) + '手' : '', },
             { name: '成交额', value: simplifyNumber(quote.amount), },
             { name: '换手', value: quote.turnover_rate ? quote.turnover_rate + '%' : '', },
