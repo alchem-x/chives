@@ -54,13 +54,9 @@ export const useStockStore = defineStore('stock', {
             this.pollTimer = setInterval(async () => {
                 if (this.symbol) {
                     if (this.isStockTrading) {
-                        const data = await getRealtimeStock(this.symbol)
-                        const quote = data?.[0]
-                        if (quote) {
-                            Object.assign(this.stockData.quote, quote)
-                            if (loopCount % 20 === 0) {
-                                await this.fetchChartMinuteData('1d')
-                            }
+                        await this.fetchRealtimeStock()
+                        if (loopCount % 20 === 0) {
+                            await this.fetchChartMinuteData('1d')
                         }
                     }
                     if (loopCount % 30 === 0) {
@@ -72,6 +68,13 @@ export const useStockStore = defineStore('stock', {
         },
         stopPollRealtimeStock() {
             clearInterval(this.pollTimer)
+        },
+        async fetchRealtimeStock() {
+            const data = await getRealtimeStock(this.symbol)
+            const quote = data?.[0]
+            if (quote) {
+                Object.assign(this.stockData.quote, quote)
+            }
         },
         async onSearch() {
             await Promise.all([
