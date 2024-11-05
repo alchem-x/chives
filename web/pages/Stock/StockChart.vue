@@ -139,6 +139,10 @@ watch(() => stockStore.chartMinuteData, (data) => {
         direction: ltr;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
+
+        :deep(#tv-attr-logo) {
+            display: none;
+        }
     }
 }
 </style>
