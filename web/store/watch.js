@@ -11,15 +11,6 @@ export const useWatchStore = defineStore('watch', {
             deleteLoading: false,
         }
     },
-    getters: {
-        itemList() {
-            if (this.symbol) {
-                return this.watchList.filter(it => it.symbol === this.symbol)
-            } else {
-                return this.watchList
-            }
-        },
-    },
     actions: {
         async onSearch() {
             try {
