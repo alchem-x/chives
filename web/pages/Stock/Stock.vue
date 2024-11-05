@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { inject, onMounted } from 'vue'
+import { inject, onBeforeUnmount, onMounted } from 'vue'
 import { NPageHeader } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router'
 import { useStockStore } from '@/store/stock.js'
@@ -43,6 +43,10 @@ onMounted(async () => {
     await stockStore.changeSymbol('')
   }
   await stockStore.pollRealtimeStock()
+})
+
+onBeforeUnmount(async () => {
+  await stockStore.changeSymbol('')
 })
 
 useWatchQuery(stockStore, ['symbol'])

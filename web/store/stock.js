@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { getStock, getRealtimeStock, getChartMinute } from '@/apis/snowball.js'
 import get from 'lodash/get.js'
 import { useWatchStore } from '@/store/watch.js'
-import { getFromLocalStorage, setToLocalStorage } from '@/common/loca_storage'
+import { getFromLocalStorage, setToLocalStorage } from '@/common/web_storage'
 
 export const useStockStore = defineStore('stock', {
     state() {

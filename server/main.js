@@ -16,7 +16,7 @@ function useRouters(app) {
 function useStatic(app) {
     app.use(serveStatic(resolve(import.meta.dirname, '..', 'dist')))
     app.use(serveStatic(resolve(import.meta.dirname, '..', 'public')))
-    app.get('/**', (_, res) => res.sendFile(resolve(import.meta.dirname, '..', 'dist', 'index.html')))
+    app.use((_, res) => res.sendFile(resolve(import.meta.dirname, '..', 'dist', 'index.html')))
 }
 
 function startApp(app) {
