@@ -1,6 +1,6 @@
 services:
   chives-watch:
-    image: public.ecr.aws/docker/library/node:21-alpine3.17
+    image: public.ecr.aws/docker/library/node:22.11.0-alpine3.19
     container_name: chives-watch
     ports:
     - '127.0.0.1:3000:3000'
