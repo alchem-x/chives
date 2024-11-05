@@ -58,8 +58,7 @@ export const useStockStore = defineStore('stock', {
                         if (loopCount % 20 === 0) {
                             await this.fetchChartMinuteData('1d')
                         }
-                    }
-                    if (loopCount % 30 === 0) {
+                    } else if (loopCount % 30 === 0) {
                         await this.fetchStockData()
                     }
                 }
