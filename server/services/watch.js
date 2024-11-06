@@ -4,7 +4,6 @@ import { database } from './database.js'
 import { sendBarkNotice } from './bark.js'
 
 async function watchStockPrice() {
-    console.log('watchStockPrice', new Date())
     for (const it of database.data.watchList) {
         if (it.enabled) {
             const r = await getRealtimeStock(it.symbol)
@@ -26,7 +25,7 @@ async function watchStockPrice() {
 }
 
 export function startWatch() {
-    const job = new Cron('*/2 * * * * *', async () => {
+    const _ = new Cron('*/2 * * * * *', async () => {
         await watchStockPrice()
     })
 }
