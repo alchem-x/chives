@@ -1,10 +1,6 @@
 import { getRealtimeStock } from './snowball.js'
 import { database } from './database.js'
-
-function sendBarkNotice(barkAPI, message) {
-    console.info('Send message:', message)
-    const _ = fetch(`${barkAPI}/${message}`)
-}
+import { sendBarkNotice } from './bark.js'
 
 async function pollWatch() {
     while (true) {

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { getStock, getRealtimeStock, getChartMinute } from '@/apis/snowball.js'
-import get from 'lodash/get.js'
+import { get } from 'lodash-es'
 import { useWatchStore } from '@/store/watch.js'
 import { getFromLocalStorage, setToLocalStorage } from '@/common/web_storage'
 

@@ -1,6 +1,6 @@
 <template>
     <div class="list-table-container">
-        <NDataTable :loading="watchStore.dataLoading" :columns="columns" :data="itemList" >
+        <NDataTable :loading="watchStore.dataLoading" :columns="columns" :data="itemList">
             <template #empty>
                 <span>无数据</span>
             </template>
@@ -18,15 +18,15 @@
 
 <script setup lang="jsx">
 import { NButton, NDataTable, NInputNumber, NSelect, NSwitch } from 'naive-ui'
+import { isNumber } from 'lodash-es'
 import { createUpdateWatchItemModal } from './action.jsx'
 import { WATCH_TYPE_OPTIONS, stateSwitchSlots } from './constants.jsx'
-import { useWatchStore } from '../../store/watch.js'
+import { useWatchStore } from '@/store/watch.js'
+import { useStockStore } from '@/store/stock.js'
 import { createNewWatchItemModal } from './action.jsx'
 import { useRoute } from 'vue-router'
 import { computed, inject } from 'vue'
-import { useStockStore } from '../../store/stock.js'
-import { message } from '../../common/providers.jsx'
-import isNumber from 'lodash/isNumber.js'
+import { message } from '@/common/providers.jsx'
 
 const watchStore = useWatchStore()
 const stockStore = useStockStore()

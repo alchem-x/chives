@@ -11,11 +11,11 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { NSelect } from 'naive-ui'
-import debounce from 'lodash/debounce.js'
+import { debounce } from 'lodash-es'
 import { message } from '@/common/providers.jsx'
 import { getSuggestStock } from '@/apis/snowball.js'
 
-const props = defineProps(['value', 'name','immediate'])
+const props = defineProps(['value', 'name', 'immediate'])
 const emit = defineEmits(['update:value', 'update:name'])
 
 const options = ref([])
@@ -60,8 +60,8 @@ watch(() => props.value, async (symbol) => {
     if (symbol) {
         await onSuggest(symbol)
     }
-}, { 
+}, {
     immediate: props.immediate,
- })
+})
 
 </script>

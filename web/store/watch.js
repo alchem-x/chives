@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { getDBData, newWatchItem, updateWatchItem, deleteWatchItem } from '../apis/db.js'
-import { message } from '../common/providers.jsx'
+import { message } from '@/common/providers.jsx'
 
 export const useWatchStore = defineStore('watch', {
     state() {
