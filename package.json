@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "zx --verbose -e '$`pnpm run watch`;$`pnpm run serve`;'",
+    "start": "rm -rf dist && zx --verbose -e '$`pnpm run watch`;$`pnpm run serve`;'",
     "dev": "webpack serve",
     "watch": "webpack --watch",
     "build": "webpack --mode=production",
