@@ -1,3 +1,5 @@
+import { Cron } from 'croner'
+import { shallowRef } from 'vue'
 import { defineStore } from 'pinia'
 import { getStock, getRealtimeStock, getChartMinute } from '@/apis/snowball.js'
 import { get } from 'lodash-es'
@@ -11,6 +13,7 @@ export const useStockStore = defineStore('stock', {
             stockData: null,
             chartMinuteData: null,
             recentlyStockList: getFromLocalStorage('cw_recently_stock_list') ?? [],
+            cronJobs: shallowRef([]),
         }
     },
     getters: {
@@ -50,24 +53,31 @@ export const useStockStore = defineStore('stock', {
             }
         },
         startPollRealtimeStock() {
-            let loopCount = 0
-            this.pollTimer = setInterval(async () => {
-                if (this.symbol) {
-                    if (this.isStockTrading) {
-                        await this.fetchRealtimeStock()
-                        if (loopCount % 20 === 0) {
+            this.cronJobs.push(
+                ...[
+                    new Cron('*/2 * * * * *', async () => {
+                        if (this.symbol && this.isStockTrading) {
+                            await this.fetchRealtimeStock()
+                        }
+                    }),
+                    new Cron('*/20 * * * * *', async () => {
+                        if (this.symbol && this.isStockTrading) {
                             await this.fetchChartMinuteData('1d')
                         }
-                    }
-                    if (loopCount % 30 === 0) {
-                        await this.fetchStockData()
-                    }
-                }
-                loopCount++
-            }, 2000)
+                    }),
+                    new Cron('*/30 * * * * *', async () => {
+                        if (this.symbol) {
+                            await this.fetchStockData()
+                        }
+                    }),
+                ]
+            )
         },
         stopPollRealtimeStock() {
-            clearInterval(this.pollTimer)
+            for (const job of this.cronJobs) {
+                job.stop()
+            }
+            this.cronJobs.length = 0
         },
         async fetchRealtimeStock() {
             const data = await getRealtimeStock(this.symbol)
