@@ -27,6 +27,7 @@ import { createNewWatchItemModal } from './action.jsx'
 import { useRoute } from 'vue-router'
 import { computed, inject } from 'vue'
 import { message } from '@/common/providers.jsx'
+import { getSnowballLink } from '@/common/snowball.js'
 
 const watchStore = useWatchStore()
 const stockStore = useStockStore()
@@ -61,7 +62,7 @@ const columns = [
         render: (it) => {
             return (
                 <>
-                    <NButton size="large" text href={`/stock?symbol=${it.symbol}`} tag="a" target="_blank">
+                    <NButton size="large" text href={getSnowballLink(it.symbol)} tag="a" target="_blank">
                         {it.name} ({it.symbol})
                     </NButton>
                     {renderEventData(it)}

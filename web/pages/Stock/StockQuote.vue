@@ -23,6 +23,7 @@ import { NButton } from 'naive-ui'
 import { isNil, isNumber } from 'lodash-es'
 import { simplifyNumber } from '@/common/formating.js'
 import { useStockStore } from '@/store/stock.js'
+import { getSnowballLink } from '@/common/snowball.js'
 
 import LoadingSegment from '@/common/LoadingSegment.vue'
 
@@ -53,7 +54,7 @@ const info = computed(() => {
             { name: '状态', value: market.status, },
         ]
         const Stock = () => (
-            <a href={`https://xueqiu.com/S/${quote.symbol}`} target="_blank">
+            <a href={getSnowballLink(quote.symbol)} target="_blank">
                 <NButton quaternary type="info" size="large">
                     <span class="stock-name">
                         {quote.name}({quote.symbol})
