@@ -99,7 +99,6 @@ export const useStockStore = defineStore('stock', {
             }
         },
         async fetchChartMinuteData(period) {
-            this.chartMinuteData = null
             const data = await getChartMinute({
                 symbol: this.symbol,
                 period,
