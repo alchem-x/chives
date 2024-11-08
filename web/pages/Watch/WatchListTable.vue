@@ -65,6 +65,7 @@ const columns = [
                     <NButton size="large" text href={getSnowballLink(it.symbol)} tag="a" target="_blank">
                         {it.name} ({it.symbol})
                     </NButton>
+                    <div class="td-price">现价: {it.current}</div>
                     {renderEventData(it)}
                 </>
             )
@@ -169,6 +170,10 @@ async function onRefresh() {
         display: none;
     }
 
+    :deep(.td-price) {
+        color: #666
+    }
+
     @container (max-width: 800px) {
         :deep(.column-stock) {
             .td-event {
@@ -192,6 +197,11 @@ async function onRefresh() {
         :deep(.button-state-action) {
             display: flex;
             margin-top: .5rem;
+        }
+
+        :deep(.td-price) {
+            display: inline-block;
+            margin-left: .5rem;
         }
     }
 }
