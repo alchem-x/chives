@@ -12,6 +12,7 @@ export const useWatchStore = defineStore('watch', {
             saveLoading: false,
             deleteLoading: false,
             cronJobs: shallowRef([]),
+            autoRefresh: false,
         }
     },
     actions: {
@@ -63,7 +64,9 @@ export const useWatchStore = defineStore('watch', {
             this.cronJobs.push(
                 ...[
                     new Cron('*/10 * * * * *', async () => {
-                        await this.onSearch()
+                        if (this.autoRefresh) {
+                            await this.onSearch()
+                        }
                     }),
                 ]
             )

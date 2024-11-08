@@ -10,6 +10,14 @@
         <NButton size="large" @click="onClickNew" type="primary">
             新增
         </NButton>
+        <NSwitch v-model:value="watchStore.autoRefresh">
+            <template #checked>
+                自动刷新
+            </template>
+            <template #unchecked>
+                停止刷新
+            </template>
+        </NSwitch>
     </div>
 </template>
 
@@ -22,9 +30,8 @@ import { useWatchStore } from '@/store/watch.js'
 import { useStockStore } from '@/store/stock.js'
 import { createNewWatchItemModal } from './action.jsx'
 import { useRoute, useRouter } from 'vue-router'
-import { computed, inject } from 'vue'
+import { computed } from 'vue'
 import { message } from '@/common/providers.jsx'
-import { getSnowballLink } from '@/common/snowball.js'
 
 const watchStore = useWatchStore()
 const stockStore = useStockStore()
