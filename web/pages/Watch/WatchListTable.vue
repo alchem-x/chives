@@ -10,7 +10,7 @@
         <NButton size="large" @click="onClickNew" type="primary">
             新增
         </NButton>
-        <NSwitch size="large" v-model:value="watchStore.autoRefresh" @update:value="watchStore.changeAutoRefresh">
+        <NSwitch size="large" :value="watchStore.autoRefresh" @update:value="watchStore.changeAutoRefresh">
             <template #checked>
                 刷新
             </template>
@@ -30,7 +30,7 @@ import { useWatchStore } from '@/store/watch.js'
 import { useStockStore } from '@/store/stock.js'
 import { createNewWatchItemModal } from './action.jsx'
 import { useRoute, useRouter } from 'vue-router'
-import { computed } from 'vue'
+import { computed, onBeforeUnmount } from 'vue'
 import { message } from '@/common/providers.jsx'
 
 const watchStore = useWatchStore()
@@ -149,6 +149,11 @@ const itemList = computed(() => {
         return watchStore.watchList
     }
 })
+
+onBeforeUnmount(() => {
+    watchStore.changeAutoRefresh(false)
+})
+
 </script>
 
 <style scoped>

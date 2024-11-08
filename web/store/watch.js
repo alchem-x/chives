@@ -22,6 +22,7 @@ export const useWatchStore = defineStore('watch', {
             } else {
                 this.stopCronJobs()
             }
+            this.autoRefresh = ev
         },
         async onSearch() {
             try {
