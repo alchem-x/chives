@@ -10,12 +10,12 @@
         <NButton size="large" @click="onClickNew" type="primary">
             新增
         </NButton>
-        <NSwitch v-model:value="watchStore.autoRefresh">
+        <NSwitch size="large" v-model:value="watchStore.autoRefresh">
             <template #checked>
-                自动刷新
+                刷新
             </template>
             <template #unchecked>
-                停止刷新
+                停止
             </template>
         </NSwitch>
     </div>
@@ -214,6 +214,7 @@ const itemList = computed(() => {
     margin-top: .5rem;
     box-sizing: border-box;
     display: flex;
+    align-items: center;
     gap: .5rem;
 }
 </style>
