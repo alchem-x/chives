@@ -8,7 +8,11 @@
       <StockChart />
     </div>
     <div v-if="guiState.token" class="watch-segment">
-      <NPageHeader title="盯盘" />
+      <NPageHeader title="盯盘">
+        <template #extra>
+          <NButton @click="gotoWatchPage" size="large" text>全部盯盘</NButton>
+        </template>
+      </NPageHeader>
       <WatchListTable />
     </div>
   </div>
@@ -16,7 +20,7 @@
 
 <script setup>
 import { inject, onBeforeUnmount, onMounted } from 'vue'
-import { NPageHeader } from 'naive-ui'
+import { NPageHeader, NButton } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router'
 import { useStockStore } from '@/store/stock.js'
 import { useWatchQuery } from '@/common/watchQuery.js'
@@ -33,7 +37,11 @@ const stockStore = useStockStore()
 const guiState = inject('GUI_STATE')
 
 function onBack() {
-  router.push('/')
+  router.back()
+}
+
+function gotoWatchPage() {
+  router.push('/watch')
 }
 
 onMounted(async () => {

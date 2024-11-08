@@ -24,7 +24,7 @@ import { WATCH_TYPE_OPTIONS, stateSwitchSlots } from './constants.jsx'
 import { useWatchStore } from '@/store/watch.js'
 import { useStockStore } from '@/store/stock.js'
 import { createNewWatchItemModal } from './action.jsx'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { computed, inject } from 'vue'
 import { message } from '@/common/providers.jsx'
 import { getSnowballLink } from '@/common/snowball.js'
@@ -32,6 +32,7 @@ import { getSnowballLink } from '@/common/snowball.js'
 const watchStore = useWatchStore()
 const stockStore = useStockStore()
 const route = useRoute()
+const router = useRouter()
 
 function renderEventData(it) {
     async function onChangeType(ev) {
@@ -60,9 +61,16 @@ const columns = [
         title: '股票',
         className: 'column-stock',
         render: (it) => {
+
+            function gotoStockPage() {
+                router.push({
+                    path: '/stock',
+                    query: { symbol: it.symbol },
+                })
+            }
             return (
                 <>
-                    <NButton size="large" text href={getSnowballLink(it.symbol)} tag="a" target="_blank">
+                    <NButton size="large" text onClick={gotoStockPage}>
                         {it.name} ({it.symbol})
                     </NButton>
                     <div class="td-price">现价: {it.current}</div>
