@@ -1,9 +1,8 @@
-import { database } from './database.js'
+import { BARK_API } from '../common/global.js'
 
 export function sendBarkNotice(message) {
-    const barkAPI = database.data.barkAPI
-    if (barkAPI) {
+    if (BARK_API) {
         console.info('Send message:', message)
-        const _ = fetch(`${barkAPI}/${message}`)
+        const _ = fetch(`${BARK_API}/${message}`)
     }
 }
