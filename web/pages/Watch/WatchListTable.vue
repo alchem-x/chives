@@ -214,6 +214,7 @@ const itemList = computed(() => {
     margin-top: .5rem;
     box-sizing: border-box;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: .5rem;
 }
