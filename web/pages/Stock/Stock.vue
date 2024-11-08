@@ -50,12 +50,12 @@ onMounted(async () => {
   } else {
     await stockStore.changeSymbol('')
   }
-  stockStore.startPollRealtimeStock()
+  stockStore.startCronJobs()
 })
 
 onBeforeUnmount(async () => {
   await stockStore.changeSymbol('')
-  stockStore.stopPollRealtimeStock()
+  stockStore.stopCronJobs()
 })
 
 useWatchQuery(stockStore, ['symbol'])

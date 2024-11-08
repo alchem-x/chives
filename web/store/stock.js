@@ -52,7 +52,7 @@ export const useStockStore = defineStore('stock', {
                 this.chartMinuteData = null
             }
         },
-        startPollRealtimeStock() {
+        startCronJobs() {
             this.cronJobs.push(
                 ...[
                     new Cron('*/2 * * * * *', async () => {
@@ -63,6 +63,7 @@ export const useStockStore = defineStore('stock', {
                     new Cron('*/20 * * * * *', async () => {
                         if (this.symbol && this.isStockTrading) {
                             await this.fetchChartMinuteData('1d')
+                            await useWatchStore().onSearch()
                         }
                     }),
                     new Cron('*/30 * * * * *', async () => {
@@ -73,7 +74,7 @@ export const useStockStore = defineStore('stock', {
                 ]
             )
         },
-        stopPollRealtimeStock() {
+        stopCronJobs() {
             for (const job of this.cronJobs) {
                 job.stop()
             }

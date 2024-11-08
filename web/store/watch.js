@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { Cron } from 'croner'
 import { getDBData, newWatchItem, updateWatchItem, deleteWatchItem } from '../apis/db.js'
 import { message } from '@/common/providers.jsx'
 
@@ -9,6 +10,7 @@ export const useWatchStore = defineStore('watch', {
             dataLoading: false,
             saveLoading: false,
             deleteLoading: false,
+            cronJobs: shallowRef([]),
         }
     },
     actions: {
@@ -55,6 +57,21 @@ export const useWatchStore = defineStore('watch', {
             } finally {
                 this.deleteLoading = false
             }
-        }
+        },
+        startCronJobs() {
+            this.cronJobs.push(
+                ...[
+                    new Cron('*/10 * * * * *', async () => {
+                        await this.onSearch()
+                    }),
+                ]
+            )
+        },
+        stopCronJobs() {
+            for (const job of this.cronJobs) {
+                job.stop()
+            }
+            this.cronJobs.length = 0
+        },
     },
 })

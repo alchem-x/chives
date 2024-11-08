@@ -10,9 +10,6 @@
         <NButton size="large" @click="onClickNew" type="primary">
             新增
         </NButton>
-        <NButton size="large" @click="onRefresh">
-            刷新
-        </NButton>
     </div>
 </template>
 
@@ -145,11 +142,6 @@ const itemList = computed(() => {
         return watchStore.watchList
     }
 })
-
-async function onRefresh() {
-    await watchStore.onSearch()
-    message.success('已刷新')
-}
 </script>
 
 <style scoped>

@@ -17,6 +17,11 @@ const watchStore = useWatchStore()
 
 onMounted(async () => {
     await watchStore.onSearch()
+    watchStore.startCronJobs()
+})
+
+onBeforeUnmount(async () => {
+    watchStore.stopCronJobs()
 })
 
 function onBack() {
