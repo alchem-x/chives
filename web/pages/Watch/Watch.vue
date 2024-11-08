@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue'
+import { onMounted } from 'vue'
 import { NPageHeader } from 'naive-ui'
 import { useWatchStore } from '@/store/watch.js'
 import WatchListTable from './WatchListTable.vue'
@@ -17,11 +17,6 @@ const watchStore = useWatchStore()
 
 onMounted(async () => {
     await watchStore.onSearch()
-    watchStore.startCronJobs()
-})
-
-onBeforeUnmount(async () => {
-    watchStore.stopCronJobs()
 })
 
 function onBack() {

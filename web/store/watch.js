@@ -16,6 +16,13 @@ export const useWatchStore = defineStore('watch', {
         }
     },
     actions: {
+        changeAutoRefresh(ev) {
+            if (ev) {
+                this.startCronJobs()
+            } else {
+                this.stopCronJobs()
+            }
+        },
         async onSearch() {
             try {
                 this.dataLoading = true

@@ -10,7 +10,7 @@
         <NButton size="large" @click="onClickNew" type="primary">
             新增
         </NButton>
-        <NSwitch size="large" v-model:value="watchStore.autoRefresh">
+        <NSwitch size="large" v-model:value="watchStore.autoRefresh" @update:value="watchStore.changeAutoRefresh">
             <template #checked>
                 刷新
             </template>

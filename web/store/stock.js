@@ -63,7 +63,6 @@ export const useStockStore = defineStore('stock', {
                     new Cron('*/20 * * * * *', async () => {
                         if (this.symbol && this.isStockTrading) {
                             await this.fetchChartMinuteData('1d')
-                            await useWatchStore().onSearch()
                         }
                     }),
                     new Cron('*/30 * * * * *', async () => {
