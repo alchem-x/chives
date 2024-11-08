@@ -1,11 +1,13 @@
 import { Cron } from 'croner'
-import { getRealtimeStock } from './snowball.js'
+import { getRealtimeStock, getStock } from './snowball.js'
 import { database } from './database.js'
 import { sendBarkNotice } from './bark.js'
 
+export const watchJobs = []
+
 async function watchStockPrice() {
     for (const it of database.data.watchList) {
-        if (it.enabled) {
+        if (it.enabled && it.marketStatus === '交易中') {
             const r = await getRealtimeStock(it.symbol)
             const data = r?.data?.[0]
             if (data) {
@@ -24,8 +26,23 @@ async function watchStockPrice() {
     }
 }
 
+async function watchStock() {
+    for (const it of database.data.watchList) {
+        const r = await getStock(it.symbol)
+        const data = r?.data
+        if (data) {
+            it.marketStatus = data.market.status
+            it.current = data.quote.current
+            await database.write()
+        }
+    }
+}
+
 export function startWatch() {
-    const _ = new Cron('*/2 * * * * *', async () => {
-        await watchStockPrice()
-    })
+    watchJobs.push[
+        new Cron('*/2 * * * * *', { name: 'WatchStockPrice', }, watchStockPrice)
+    ]
+    watchJobs.push[
+        new Cron('0 * * * * *', { name: 'WatchStock', }, watchStock)
+    ]
 }
