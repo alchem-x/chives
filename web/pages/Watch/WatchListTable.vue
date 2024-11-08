@@ -118,9 +118,6 @@ const columns = [
     },
 ]
 
-
-const guiState = inject('GUI_STATE')
-
 function onClickNew() {
     const item = {
         type: 'UP_TO',
@@ -129,7 +126,6 @@ function onClickNew() {
         item.symbol = stockStore.symbol
         item.name = stockStore.stockName
     }
-    item.barkAPI = guiState.barkAPI
     createNewWatchItemModal(item)
 }
 

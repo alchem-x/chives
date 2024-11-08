@@ -2,33 +2,36 @@ import GUI from 'lil-gui'
 import { shallowRef, reactive, onMounted, onBeforeUnmount } from 'vue'
 
 const TOKEN_KEY = 'cw_token'
-const BARK_API_KEY = 'cw_bark_api'
 
 export function getTokenFromStorage() {
     return localStorage.getItem(TOKEN_KEY) ?? ''
 }
 
+function setTokenToStorage(token) {
+    localStorage.setItem(TOKEN_KEY, token)
+}
+
+/**
+ * Call once when app bootstrap
+ * 
+ * @returns state
+ */
 export function useGUI() {
     const gui = shallowRef()
     const state = reactive({
         token: '',
-        barkAPI: '',
     })
 
     function createGui() {
         gui.value = new GUI()
         gui.value.add(state, 'token').onChange((ev) => {
-            localStorage.setItem(TOKEN_KEY, ev)
-        })
-        gui.value.add(state, 'barkAPI').onChange((ev) => {
-            localStorage.setItem(BARK_API_KEY, ev)
+            setTokenToStorage(ev)
         })
         gui.value.close()
     }
 
     function resurrectState() {
-        state.token = localStorage.getItem(TOKEN_KEY) ?? ''
-        state.barkAPI = localStorage.getItem(BARK_API_KEY) ?? ''
+        state.token = getTokenFromStorage()
     }
 
     function destroyGui() {

@@ -41,11 +41,6 @@ function createWatchItemForm({ formRef, formState }) {
             message: '输入价格',
             required: true,
         },
-        barkAPI: {
-            trigger: ['blur', 'input'],
-            message: '输入Bark API',
-            required: true,
-        },
         comment: {
             trigger: ['blur', 'input'],
             message: '输入备注',
@@ -82,9 +77,6 @@ function createWatchItemForm({ formRef, formState }) {
                         <NSwitch vModel:value={formState.enabled} size="large">
                             {stateSwitchSlots}
                         </NSwitch>
-                    </NFormItem>
-                    <NFormItem label="Bark API" path="barkAPI">
-                        <NInput size="large" vModel:value={formState.barkAPI} placeholder={rules.barkAPI.message} clearable />
                     </NFormItem>
                     <NFormItem label="备注" path="comment">
                         <NInput type="textarea" vModel:value={formState.comment}

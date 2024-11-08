@@ -13,11 +13,11 @@ async function watchStockPrice() {
             if (data) {
                 it.current = data.current
                 if ((it.type === 'UP_TO' && it.current >= it.price)) {
-                    sendBarkNotice(it.barkAPI, `⏰${it.name ?? ''}${it.symbol}价格涨到${it.current}${it.comment ? `/${it.comment}` : ''}`)
+                    sendBarkNotice(`⏰${it.name ?? ''}${it.symbol}价格涨到${it.current}${it.comment ? `/${it.comment}` : ''}`)
                     it.enabled = false
                 }
                 if ((it.type === 'DOWN_TO' && it.current <= it.price)) {
-                    sendBarkNotice(it.barkAPI, `⏰${it.name ?? ''}${it.symbol}价格跌到${it.current}${it.comment ? `/${it.comment}` : ''}`)
+                    sendBarkNotice(`⏰${it.name ?? ''}${it.symbol}价格跌到${it.current}${it.comment ? `/${it.comment}` : ''}`)
                     it.enabled = false
                 }
             }
@@ -39,10 +39,8 @@ async function watchStock() {
 }
 
 export function startWatch() {
-    watchJobs.push[
-        new Cron('*/2 * * * * *', { name: 'WatchStockPrice', }, watchStockPrice)
-    ]
-    watchJobs.push[
+    watchJobs.push(...[
+        new Cron('*/2 * * * * *', { name: 'WatchStockPrice', }, watchStockPrice),
         new Cron('0 * * * * *', { name: 'WatchStock', }, watchStock)
-    ]
+    ])
 }

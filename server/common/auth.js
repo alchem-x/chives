@@ -5,6 +5,6 @@ export function auth(req, res, next) {
     if (token === CW_TOKEN) {
         next()
     } else {
-        res.send(401, 'Unauthorized');
+        res.status(401).send('Unauthorized');
     }
 }
