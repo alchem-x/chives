@@ -15,7 +15,7 @@
                 刷新
             </template>
             <template #unchecked>
-                停止
+                刷新
             </template>
         </NSwitch>
     </div>
