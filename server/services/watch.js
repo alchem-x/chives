@@ -11,19 +11,19 @@ async function watchStockPrice() {
             const r = await getRealtimeStock(it.symbol)
             const data = r?.data?.[0]
             if (data) {
-                if ((it.type === 'UP_TO' && data.current >= it.price)) {
-                    sendBarkNotice(it.barkAPI, `⏰${it.name ?? ''}${it.symbol}价格涨到${data.current}${it.comment ? `/${it.comment}` : ''}`)
+                it.current = data.current
+                if ((it.type === 'UP_TO' && it.current >= it.price)) {
+                    sendBarkNotice(it.barkAPI, `⏰${it.name ?? ''}${it.symbol}价格涨到${it.current}${it.comment ? `/${it.comment}` : ''}`)
                     it.enabled = false
-                    await database.write()
                 }
-                if ((it.type === 'DOWN_TO' && data.current <= it.price)) {
-                    sendBarkNotice(it.barkAPI, `⏰${it.name ?? ''}${it.symbol}价格跌到${data.current}${it.comment ? `/${it.comment}` : ''}`)
+                if ((it.type === 'DOWN_TO' && it.current <= it.price)) {
+                    sendBarkNotice(it.barkAPI, `⏰${it.name ?? ''}${it.symbol}价格跌到${it.current}${it.comment ? `/${it.comment}` : ''}`)
                     it.enabled = false
-                    await database.write()
                 }
             }
         }
     }
+    await database.write()
 }
 
 async function watchStock() {
@@ -33,9 +33,9 @@ async function watchStock() {
         if (data) {
             it.marketStatus = data.market.status
             it.current = data.quote.current
-            await database.write()
         }
     }
+    await database.write()
 }
 
 export function startWatch() {
