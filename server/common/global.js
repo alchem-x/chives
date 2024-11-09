@@ -1,9 +1,10 @@
 import { config } from 'dotenv'
 
-config()
+const { parsed } = config()
 
-export const DB_TOKEN = process.env.DB_TOKEN
-export const APP_PORT = process.env.PORT ?? 3000
-export const SNOWBALL_TOKEN = process.env.SNOWBALL_TOKEN
-export const CW_TOKEN = process.env.CW_TOKEN
-export const BARK_API = process.env.BARK_API
+export const {
+    APP_PORT = 3000,
+    SNOWBALL_TOKEN,
+    CW_TOKEN, 
+    BARK_API,
+} = parsed

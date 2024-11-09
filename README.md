@@ -10,6 +10,7 @@ Add `.env` file
 # .env
 SNOWBALL_TOKEN=
 CW_TOKEN=
+BARK_API=
 ```
 
 ### Install deps & build
