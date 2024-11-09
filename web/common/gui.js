@@ -41,7 +41,7 @@ export function useGUI() {
         }
     }
 
-    onMounted(async () => {
+    onMounted(() => {
         resurrectState()
         createGui()
     })
