@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { Cron } from 'croner'
 import { shallowRef } from 'vue'
-import { getDBData, newWatchItem, updateWatchItem, deleteWatchItem } from '../apis/db.js'
+import { getDBData, newWatchItem, updateWatchItem, deleteWatchItem } from '@/apis/db.js'
 import { message } from '@/common/providers.jsx'
 
 export const useWatchStore = defineStore('watch', {

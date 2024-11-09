@@ -6,8 +6,8 @@
 </template>
 
 <script setup>
-import { useStockStore } from '@/store/stock.js'
 import { NTag } from 'naive-ui'
+import { useStockStore } from '@/store/stock.js'
 
 const stockStore = useStockStore()
 

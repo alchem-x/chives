@@ -22,6 +22,6 @@ export const { message, notification, dialog, loadingBar, modal } = createDiscre
             theme: lightTheme,
             locale: enUS,
             dateLocale: dateZhCN,
-        }
-    }
+        },
+    },
 )

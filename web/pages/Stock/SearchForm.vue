@@ -6,25 +6,13 @@
 </template>
 
 <script setup>
-// import { ref, watch } from 'vue'
-// import { useRoute } from 'vue-router'
 import { NButton } from 'naive-ui'
 import { useStockStore } from '@/store/stock.js'
-import StockInput from '../../common/StockInput.vue'
+import StockInput from '@/common/StockInput.vue'
 
-// const route = useRoute()
 const stockStore = useStockStore()
 
-// const inputSymbol = ref(route.query.symbol ?? '')
-
-// watch(() => stockStore.symbol, (symbol) => {
-//     if (inputSymbol.value !== symbol) {
-//         inputSymbol.value = symbol
-//     }
-// })
-
 async function onSelectSearch(ev) {
-    // inputSymbol.value = ev
     await stockStore.changeSymbol(ev)
 }
 
