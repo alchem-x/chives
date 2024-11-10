@@ -2,7 +2,7 @@
     <div class="index-container">
         <img :src="'/images/stock.png'">
         <div class="nav">
-            <NFlex align="center">
+            <NFlex align="center" justify="center">
                 <NPageHeader title="开始摇滚 📈" />
                 <RouterLink :to="'/stock'">
                     <NButton size="large">
