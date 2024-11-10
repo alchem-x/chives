@@ -1,5 +1,5 @@
 import { defineComponent, ref } from 'vue'
-import { NInput, NSelect, NButton, NSwitch, NInputNumber, NForm, NFormItem } from 'naive-ui'
+import { NInput, NSelect, NButton, NSwitch, NForm, NFormItem } from 'naive-ui'
 import { css } from '@emotion/css'
 import { modal, message } from '@/common/providers.jsx'
 import { useWatchStore } from '@/store/watch.js'
@@ -35,8 +35,7 @@ function createWatchItemForm({ formRef, formState }) {
             message: '输入股票名称',
             required: false,
         },
-        price: {
-            type: 'number',
+        value: {
             trigger: ['blur', 'input'],
             message: '输入价格',
             required: true,
@@ -70,8 +69,8 @@ function createWatchItemForm({ formRef, formState }) {
                     <NFormItem label="事件类型" path="type" >
                         <NSelect size="large" vModel:value={formState.type} options={WATCH_TYPE_OPTIONS} placeholder={rules.type.message} />
                     </NFormItem>
-                    <NFormItem label="目标价格" path="price">
-                        <NInputNumber size="large" vModel:value={formState.price} placeholder={rules.price.message} clearable showButton={false} />
+                    <NFormItem label="目标价格" path="value">
+                        <NInput size="large" vModel:value={formState.value} placeholder={rules.value.message} clearable />
                     </NFormItem>
                     <NFormItem label="状态" path="status">
                         <NSwitch vModel:value={formState.enabled} size="large">

@@ -22,8 +22,7 @@
 </template>
 
 <script setup lang="jsx">
-import { NButton, NDataTable, NInputNumber, NSelect, NSwitch } from 'naive-ui'
-import { isNumber } from 'lodash-es'
+import { NButton, NDataTable, NInput, NSelect, NSwitch } from 'naive-ui'
 import { createUpdateWatchItemModal } from './action.jsx'
 import { WATCH_TYPE_OPTIONS, stateSwitchSlots } from './constants.jsx'
 import { useWatchStore } from '@/store/watch.js'
@@ -44,8 +43,8 @@ function renderEventData(it) {
         it.type = ev
         message.success('变更事件类型')
     }
-    async function onChangePrice(ev) {
-        if (isNumber(it.price)) {
+    async function onChangeValue(ev) {
+        if (it.value) {
             await watchStore.updateWatchItem({ ...it })
             message.success('更新价格')
         } else {
@@ -55,7 +54,7 @@ function renderEventData(it) {
     return (
         <div class="td-event">
             <NSelect size="large" vModel:value={it.type} onUpdate:value={onChangeType} options={WATCH_TYPE_OPTIONS} style="width: 100px;" />
-            <NInputNumber size="large" vModel:value={it.price} onBlur={onChangePrice} style="width: 104px;" placeholder="输入价格" clearable showButton={false} />
+            <NInput size="large" vModel:value={it.value} onBlur={onChangeValue} style="width: 104px;" placeholder="输入价格" clearable />
         </div>
     )
 }
@@ -77,7 +76,7 @@ const columns = [
                     <NButton size="large" text onClick={gotoStockPage}>
                         {it.name} ({it.symbol})
                     </NButton>
-                    <div class="td-price">现价: {it.current}</div>
+                    <div class="td-value">现价: {it.current}</div>
                     {renderEventData(it)}
                 </>
             )
@@ -178,7 +177,7 @@ onBeforeUnmount(() => {
         display: none;
     }
 
-    :deep(.td-price) {
+    :deep(.td-value) {
         color: #666
     }
 
@@ -207,7 +206,7 @@ onBeforeUnmount(() => {
             margin-top: .5rem;
         }
 
-        :deep(.td-price) {
+        :deep(.td-value) {
             display: inline-block;
             margin-left: .5rem;
         }
