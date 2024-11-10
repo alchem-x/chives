@@ -37,7 +37,7 @@ const stockStore = useStockStore()
 const guiState = inject('GUI_STATE')
 
 function onBack() {
-  router.back()
+  router.push('/')
 }
 
 function gotoWatchPage() {

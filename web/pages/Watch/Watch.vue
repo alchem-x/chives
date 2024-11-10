@@ -20,7 +20,7 @@ onMounted(async () => {
 })
 
 function onBack() {
-    router.back()
+    router.push('/')
 }
 </script>
 
