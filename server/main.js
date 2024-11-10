@@ -7,6 +7,8 @@ import { snowball } from './routers/snowball.js'
 import { db } from './routers/db.js'
 import { startWatch } from './workers/watch.js'
 
+const dirname = import.meta.dirname
+
 function useRouters(app) {
     app.use(hello)
     app.use(snowball)
@@ -14,9 +16,9 @@ function useRouters(app) {
 }
 
 function useStatic(app) {
-    app.use(serveStatic(resolve(import.meta.dirname, '..', 'dist')))
-    app.use(serveStatic(resolve(import.meta.dirname, '..', 'public')))
-    app.use((_, res) => res.sendFile(resolve(import.meta.dirname, '..', 'dist', 'index.html')))
+    app.use(serveStatic(resolve(dirname, '..', 'dist')))
+    app.use(serveStatic(resolve(dirname, '..', 'public')))
+    app.use((_, res) => res.sendFile(resolve(dirname, '..', 'dist', 'index.html')))
 }
 
 function startApp(app) {
