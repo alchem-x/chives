@@ -106,16 +106,21 @@ function resetLWChart() {
 const resetLWChartDebounced = debounce(resetLWChart, 100)
 
 onMounted(() => {
+    if(stockStore.chartMinuteData) {
+        resetLWChart()
+    }
+    stockStore.startCartDataJob()
     window.addEventListener('resize', resetLWChartDebounced)
 })
 
 onBeforeUnmount(() => {
+    stockStore.stopCharDataJob()
     window.removeEventListener('resize', resetLWChartDebounced)
     destroyLWChart()
 })
 
 watch(() => stockStore.chartMinuteData, (data) => {
-    if (data) {
+    if (data && chartContainer.value) {
         resetLWChart()
     } else {
         destroyLWChart()

@@ -5,7 +5,11 @@
     <OptionalStock />
     <div class="stock-info">
       <StockQuote />
-      <StockChart />
+      <NCollapse arrow-placement="right">
+        <NCollapseItem title="分时">
+          <StockChart />
+        </NCollapseItem>
+      </NCollapse>
     </div>
     <div v-if="guiState.token" class="watch-segment">
       <NPageHeader title="盯盘">
@@ -20,7 +24,7 @@
 
 <script setup>
 import { inject, onBeforeUnmount, onMounted } from 'vue'
-import { NPageHeader, NButton } from 'naive-ui'
+import { NPageHeader, NButton, NCollapse, NCollapseItem, } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router'
 import { useStockStore } from '@/store/stock.js'
 import { useWatchQuery } from '@/common/watchQuery.js'

@@ -55,23 +55,34 @@ export const useStockStore = defineStore('stock', {
         startCronJobs() {
             this.cronJobs.push(
                 ...[
-                    new Cron('*/2 * * * * *', async () => {
+                    new Cron('*/2 * * * * *', { name: 'RealtimeStockJob' }, async () => {
                         if (this.symbol && this.isStockTrading) {
                             await this.fetchRealtimeStock()
                         }
                     }),
-                    new Cron('*/20 * * * * *', async () => {
-                        if (this.symbol && this.isStockTrading) {
-                            await this.fetchChartMinuteData('1d')
-                        }
-                    }),
-                    new Cron('*/30 * * * * *', async () => {
+                    new Cron('*/30 * * * * *', { name: 'StockDataJob' }, async () => {
                         if (this.symbol) {
                             await this.fetchStockData()
                         }
                     }),
                 ]
             )
+        },
+        startCartDataJob() {
+            this.cronJobs.push(
+                new Cron('*/20 * * * * *', { name: 'ChartDataJob' }, async () => {
+                    if (this.symbol && this.isStockTrading) {
+                        await this.fetchChartMinuteData('1d')
+                    }
+                })
+            )
+        },
+        stopCharDataJob() {
+            const findIndex = this.cronJobs.findIndex((it) => it.name === 'ChartDataJob')
+            if (findIndex > -1) {
+                this.cronJobs[findIndex].stop()
+                this.cronJobs.splice(findIndex, 1)
+            }
         },
         stopCronJobs() {
             for (const job of this.cronJobs) {
