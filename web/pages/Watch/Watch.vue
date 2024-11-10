@@ -1,7 +1,7 @@
 <template>
     <div class="watch-container">
         <NPageHeader :on-back="onBack" title="盯盘" />
-        <WatchListTable />
+        <WatchTable />
     </div>
 </template>
 
@@ -9,7 +9,7 @@
 import { onMounted } from 'vue'
 import { NPageHeader } from 'naive-ui'
 import { useWatchStore } from '@/store/watch.js'
-import WatchListTable from './WatchListTable.vue'
+import WatchTable from './WatchTable.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

@@ -20,7 +20,7 @@
           <template #header>
             <span class="title-collapse">盯盘</span>
           </template>
-            <WatchListTable />
+            <WatchTable />
             <NButton class="all-watch" @click="gotoWatchPage" size="large" text>全部盯盘</NButton>
         </NCollapseItem>
       </NCollapse>
@@ -37,7 +37,7 @@ import StockQuote from './StockQuote.vue'
 import StockChart from './StockChart.vue'
 import SearchForm from './SearchForm.vue'
 import OptionalStock from './OptionalStock.vue'
-import WatchListTable from '@/pages/Watch/WatchListTable.vue'
+import WatchTable from '@/pages/Watch/WatchTable.vue'
 import MALine from './MALine.vue'
 
 const route = useRoute()
