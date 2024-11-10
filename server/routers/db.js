@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { database } from '../services/database.js'
+import { database } from '../common/database.js'
 import { auth } from '../common/auth.js'
 
 export const db = Router()
