@@ -1,7 +1,6 @@
 import { SNOWBALL_TOKEN } from '../common/global.js'
 
 export async function getStock(symbol) {
-
     const params = new URLSearchParams({
         symbol,
         extend: 'detail',
@@ -11,7 +10,6 @@ export async function getStock(symbol) {
             cookie: `xq_a_token=${SNOWBALL_TOKEN}`
         }
     })
-
     return await response.json()
 }
 
@@ -49,5 +47,4 @@ export async function getChartMinute({ symbol, period }) {
         }
     })
     return await response.json()
-
 }
