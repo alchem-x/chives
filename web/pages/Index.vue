@@ -14,6 +14,16 @@
                         盯盘
                     </NButton>
                 </RouterLink>
+                <a href="https://tradingview.com/" target="_blank">
+                    <NButton text size="large">
+                        <template #icon>
+                            <TradingViewIcon />
+                        </template>
+                        <template #default>
+                            TradingView
+                        </template>
+                    </NButton>
+                </a>
                 <a href="https://github.com/alchem-x/chives-watch" target="_blank">
                     <NButton text size="large">
                         <template #icon>
@@ -31,7 +41,8 @@
 
 <script setup>
 import { NButton, NFlex, NPageHeader } from 'naive-ui'
-import GitHubIcon from '../common/GitHubIcon.jsx'
+import GitHubIcon from '../common/GitHubIcon.vue'
+import TradingViewIcon from '../common/TradingViewIcon.vue'
 </script>
 
 
