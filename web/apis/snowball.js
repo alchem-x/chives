@@ -23,9 +23,16 @@ export async function getSuggestStock(q) {
     }
 }
 
-export async function getChartMinute({symbol, period}) {
-    const params = new URLSearchParams({symbol, period })
+export async function getChartMinute({ symbol, period }) {
+    const params = new URLSearchParams({ symbol, period })
     const response = await fetch('/api/snowball/chart/minute?' + params)
+    const r = await response.json()
+    return r?.data
+}
+
+export async function getChartKLine({  symbol, begin, period, type, count, indicator, }) {
+    const params = new URLSearchParams({  symbol, begin, period, type, count, indicator, })
+    const response = await fetch('/api/snowball/chart/kline?' + params)
     const r = await response.json()
     return r?.data
 }

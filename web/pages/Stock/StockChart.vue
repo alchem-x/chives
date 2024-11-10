@@ -1,6 +1,7 @@
 <template>
     <div class="stock-chart-container">
         <LoadingSegment v-if="!stockStore.symbol" />
+        <MALine />
         <div class="lw-chart" ref="chartContainer"></div>
     </div>
 </template>
@@ -10,6 +11,7 @@ import { shallowRef, ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { createChart } from 'lightweight-charts'
 import dayjs from 'dayjs'
 import { debounce } from 'lodash-es'
+import MALine from './MALine.vue'
 import { useStockStore } from '@/store/stock.js'
 import { simplifyNumber } from '@/common/formating.js'
 import LoadingSegment from '@/common/LoadingSegment.vue'
@@ -106,7 +108,7 @@ function resetLWChart() {
 const resetLWChartDebounced = debounce(resetLWChart, 100)
 
 onMounted(() => {
-    if(stockStore.chartMinuteData) {
+    if (stockStore.chartMinuteData) {
         resetLWChart()
     }
     stockStore.startCartDataJob()

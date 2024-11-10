@@ -10,6 +10,19 @@
                     <span class="value" :class="it.className">{{ it.value }}</span>
                 </div>
             </div>
+            <NCollapse v-if="info.extraItems" arrow-placement="right">
+                <NCollapseItem>
+                    <template #header>
+                        <span class="title-collapse">更多</span>
+                    </template>
+                    <div class="item-container">
+                        <div class="item" v-for="(it) of info.extraItems">
+                            <span class="name">{{ it.name }}:</span>
+                            <span class="value" :class="it.className">{{ it.value }}</span>
+                        </div>
+                    </div>
+                </NCollapseItem>
+            </NCollapse>
         </template>
         <template v-else>
             <LoadingSegment />
@@ -19,7 +32,7 @@
 
 <script setup lang="jsx">
 import { computed } from 'vue'
-import { NButton } from 'naive-ui'
+import { NButton, NCollapse, NCollapseItem } from 'naive-ui'
 import { isNil, isNumber } from 'lodash-es'
 import { simplifyNumber } from '@/common/formating.js'
 import { useStockStore } from '@/store/stock.js'
@@ -47,8 +60,14 @@ const info = computed(() => {
             { name: '成交额', value: simplifyNumber(quote.amount), },
             { name: '换手', value: quote.turnover_rate ? quote.turnover_rate + '%' : null, },
             { name: '振幅', value: quote.amplitude ? quote.amplitude + '%' : null, },
-            { name: '市盈率(TTM)', value: quote.pe_ttm < 0 ? '亏损' : toFixed2(quote.pe_ttm), },
+        ]
+        const extraItems = [
             { name: '总市值', value: simplifyNumber(quote.market_capital), },
+            { name: '市盈率(动)', value: quote.pe_forecast < 0 ? '亏损' : toFixed2(quote.pe_forecast), },
+            { name: '市盈率(静)', value: quote.pe_lyr < 0 ? '亏损' : toFixed2(quote.pe_lyr), },
+            { name: '市盈率(TTM)', value: quote.pe_ttm < 0 ? '亏损' : toFixed2(quote.pe_ttm), },
+            { name: '52周最高', value: toFixed2(quote.low52w) },
+            { name: '52周最低', value: toFixed2(quote.high52w) },
             { name: '货币单位', value: quote.currency, },
             { name: '交易所', value: quote.exchange, },
             { name: '状态', value: market.status, },
@@ -64,13 +83,14 @@ const info = computed(() => {
         )
         return {
             Stock,
-            items: items.filter((it) => !isNil(it.value))
+            items: items.filter((it) => !isNil(it.value)),
+            extraItems: extraItems.filter((it) => !isNil(it.value)),
         }
     } else {
         return {
             items: [
                 { name: '异常', value: '数据为空', className: 'red' }
-            ]
+            ],
         }
     }
 })
@@ -84,7 +104,7 @@ const info = computed(() => {
     border-radius: 3px;
     padding: 12px;
     position: relative;
-    min-height: 200px;
+    min-height: 150px;
     container-type: inline-size;
 
     :deep(.stock-name) {
@@ -137,5 +157,10 @@ const info = computed(() => {
             column-count: 1;
         }
     }
+}
+
+.title-collapse {
+    font-size: 16px;
+    user-select: none;
 }
 </style>

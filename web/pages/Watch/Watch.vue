@@ -24,10 +24,14 @@ function onBack() {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .watch-container {
     box-sizing: border-box;
     min-height: 100vh;
     padding: 1rem;
+
+    :deep(.list-table-container) {
+        margin-top: .5rem;
+    }
 }
 </style>

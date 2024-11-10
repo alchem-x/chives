@@ -6,25 +6,29 @@
     <div class="stock-info">
       <StockQuote />
       <NCollapse arrow-placement="right">
-        <NCollapseItem title="分时">
+        <NCollapseItem>
+          <template #header>
+            <span class="title-collapse">分时</span>
+          </template>
           <StockChart />
         </NCollapseItem>
       </NCollapse>
     </div>
-    <div v-if="guiState.token" class="watch-segment">
-      <NPageHeader title="盯盘">
-        <template #extra>
-          <NButton @click="gotoWatchPage" size="large" text>全部盯盘</NButton>
-        </template>
-      </NPageHeader>
-      <WatchListTable />
+      <NCollapse v-if="guiState.token" arrow-placement="right">
+        <NCollapseItem>
+          <template #header>
+            <span class="title-collapse">盯盘</span>
+          </template>
+            <WatchListTable />
+            <NButton class="all-watch" @click="gotoWatchPage" size="large" text>全部盯盘</NButton>
+        </NCollapseItem>
+      </NCollapse>
     </div>
-  </div>
 </template>
 
 <script setup>
 import { inject, onBeforeUnmount, onMounted } from 'vue'
-import { NPageHeader, NButton, NCollapse, NCollapseItem, } from 'naive-ui'
+import { NPageHeader, NButton, NCollapse, NCollapseItem,NFlex } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router'
 import { useStockStore } from '@/store/stock.js'
 import { useWatchQuery } from '@/common/watchQuery.js'
@@ -76,9 +80,14 @@ useWatchQuery(stockStore, ['symbol'])
     margin-top: .5rem;
     gap: .5rem;
   }
+}
 
-  .watch-segment {
-    margin-top: .5rem;
-  }
+.title-collapse {
+  font-size: 16px;
+  user-select: none;
+}
+
+.all-watch {
+  margin-top: .5rem;
 }
 </style>

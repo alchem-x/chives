@@ -3,7 +3,7 @@ import { shallowRef } from 'vue'
 import { defineStore } from 'pinia'
 import { get } from 'lodash-es'
 import { useWatchStore } from '@/store/watch.js'
-import { getStock, getRealtimeStock, getChartMinute } from '@/apis/snowball.js'
+import { getStock, getRealtimeStock, getChartMinute, getChartKLine } from '@/apis/snowball.js'
 import { getFromLocalStorage, setToLocalStorage } from '@/common/web_storage.js'
 
 export const useStockStore = defineStore('stock', {
@@ -14,6 +14,7 @@ export const useStockStore = defineStore('stock', {
             chartMinuteData: null,
             recentlyStockList: getFromLocalStorage('cw_recently_stock_list') ?? [],
             cronJobs: shallowRef([]),
+            kLineData: null,
         }
     },
     getters: {
@@ -74,7 +75,7 @@ export const useStockStore = defineStore('stock', {
                     if (this.symbol && this.isStockTrading) {
                         await this.fetchChartMinuteData('1d')
                     }
-                })
+                }),
             )
         },
         stopCharDataJob() {
@@ -101,6 +102,7 @@ export const useStockStore = defineStore('stock', {
             await Promise.all([
                 this.fetchStockData(),
                 this.fetchChartMinuteData('1d'),
+                this.fetchKLineData(),
             ])
         },
         async fetchStockData() {
@@ -116,6 +118,21 @@ export const useStockStore = defineStore('stock', {
             })
             if (data) {
                 this.chartMinuteData = data
+            }
+        },
+        async fetchKLineData() {
+            const data = await getChartKLine({
+                symbol: this.symbol,
+                begin: Date.now(),
+                period: 'day',
+                type: 'before',
+                count: '-250',
+                indicator: 'kline'
+            })
+            if (data) {
+
+
+                this.kLineData = data
             }
         }
     },

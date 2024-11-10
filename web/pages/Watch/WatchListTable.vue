@@ -159,7 +159,6 @@ onBeforeUnmount(() => {
 .list-table-container {
     box-sizing: border-box;
     container-type: inline-size;
-    margin-top: .5rem;
 
     :deep(.td-event) {
         display: flex;
