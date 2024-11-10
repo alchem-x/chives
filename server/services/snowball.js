@@ -1,4 +1,4 @@
-import { SNOWBALL_TOKEN, SNOWBALL_U } from '../common/global.js'
+import { SNOWBALL_TOKEN } from '../common/global.js'
 
 export async function getStock(symbol) {
     const params = new URLSearchParams({
@@ -60,7 +60,7 @@ export async function getKLine({ symbol, begin, period, type, count, indicator }
     })
     const response = await fetch('https://stock.xueqiu.com/v5/stock/chart/kline.json?' + params, {
         headers: {
-            cookie: `xq_a_token=${SNOWBALL_TOKEN};u=${SNOWBALL_U}`,
+            cookie: `xq_a_token=${SNOWBALL_TOKEN};u=1`,
         }
     })
     return await response.json()

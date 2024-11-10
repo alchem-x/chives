@@ -14,7 +14,7 @@ import { useStockStore } from '@/store/stock.js'
 const stockStore = useStockStore()
 
 const maList = computed(() => {
-    const { item, column } = stockStore.kLineData
+    const { item = [], column = [] } = stockStore.kLineData
     const r = []
     let sum = 0
     let i = 0

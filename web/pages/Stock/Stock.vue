@@ -5,6 +5,7 @@
     <OptionalStock />
     <div class="stock-info">
       <StockQuote />
+      <MALine />
       <NCollapse arrow-placement="right">
         <NCollapseItem>
           <template #header>
@@ -37,6 +38,7 @@ import StockChart from './StockChart.vue'
 import SearchForm from './SearchForm.vue'
 import OptionalStock from './OptionalStock.vue'
 import WatchListTable from '@/pages/Watch/WatchListTable.vue'
+import MALine from './MALine.vue'
 
 const route = useRoute()
 const router = useRouter()
