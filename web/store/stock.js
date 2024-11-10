@@ -18,6 +18,9 @@ export const useStockStore = defineStore('stock', {
         }
     },
     getters: {
+        stockCurrentPrice() {
+            return get(this, 'stockData.quote.current') 
+        },
         isStockTrading() {
             return get(this, 'stockData.market.status') === '交易中'
         },
