@@ -1,7 +1,7 @@
+import { Cron } from 'croner'
 import { getStock } from '../services/snowball.js'
 import { DB_TABLE_STOCK } from '../common/global.js'
 import { getTableData, updateTableData } from '../services/noco.js'
-
 
 function formatDate(date) {
     return new Date(date).toLocaleDateString().replace(/\//g, '-')
@@ -50,6 +50,7 @@ export function startStockJobs() {
     stockJobs.push(...[
         new Cron('0 30 15 * * *', { name: 'SyncStockData',timezone: 'Asia/Shanghai' }, syncStockData),
     ])
+    console.info('Start cron jobs:', stockJobs.map((it) => it.name))
 }
 
 if (process.argv[1] === import.meta.filename) {
