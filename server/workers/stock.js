@@ -2,6 +2,10 @@ import { getStock } from '../services/snowball.js'
 import { DB_TABLE_STOCK } from '../common/global.js'
 import { getTableData, updateTableData } from '../services/noco.js'
 
+function formatDate(date) {
+    return new Date(date).toLocaleDateString().replace(/\//g, '-')
+}
+
 async function syncStockData() {
     for (let i = 0; ; i += 1000) {
         const d = await getTableData({ offset: 0 + i, limit: 1000, tableId: DB_TABLE_STOCK })
@@ -23,6 +27,7 @@ async function syncStockData() {
                     it.volume = quote.volume
                     it.amount = quote.amount
                     it.turnover_rate = quote.turnover_rate
+                    console.debug(formatDate(it.date), it.symbol, it.name, it.current)
                 }
                 delete it.CreatedAt
                 delete it.UpdatedAt
