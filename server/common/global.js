@@ -8,4 +8,7 @@ export const {
     SNOWBALL_TOKEN,
     CW_TOKEN, 
     BARK_API,
+    DB_TOKEN,
+    DB_HOST,
+    DB_TABLE_STOCK,
 } = parsed

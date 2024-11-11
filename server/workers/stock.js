@@ -1,22 +1,39 @@
-import { getKLine } from '../services/snowball.js'
+import { getStock } from '../services/snowball.js'
+import { DB_TABLE_STOCK } from '../common/global.js'
+import { getTableData, updateTableData } from '../services/noco.js'
 
-async function main() {
-    const r = await getKLine({
-        symbol: 'SH000001',
-        begin: Date.now(),
-        period: 'day',
-        type: 'before',
-        count: '-10',
-        indicator: 'kline',
-    })
-    const { item } = r.data
-    const start = item[0][0]
-    const end = item[item.length - 1][0]
-    console.log('length', item.length)
-    console.log(new Date(start).toLocaleString())
-    console.log(new Date(end).toLocaleString())
+async function syncStockData() {
+    for (let i = 0; ; i += 1000) {
+        const d = await getTableData({ offset: 0 + i, limit: 1000, tableId: DB_TABLE_STOCK })
+        const list = d?.list
+        if (list?.length) {
+            for (const it of list) {
+                const { data } = await getStock(it.symbol)
+                if (data && data.quote) {
+                    const quote = data.quote
+                    it.name = quote.name
+                    it.date = new Date(quote.timestamp).toISOString()
+                    it.open = quote.open
+                    it.current = quote.current
+                    it.last_close = quote.last_close
+                    it.low = quote.low
+                    it.high = quote.high
+                    it.change = quote.chg
+                    it.percent = quote.percent
+                    it.volume = quote.volume
+                    it.amount = quote.amount
+                    it.turnover_rate = quote.turnover_rate
+                }
+                delete it.CreatedAt
+                delete it.UpdatedAt
+            }
+            await updateTableData({ list, tableId: DB_TABLE_STOCK })
+        } else {
+            break
+        }
+    }
 }
 
 if (process.argv[1] === import.meta.filename) {
-    await main()
+    await syncStockData()
 }

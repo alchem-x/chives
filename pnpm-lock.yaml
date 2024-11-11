@@ -20,6 +20,9 @@ importers:
       express:
         specifier: ^5.0.1
         version: 5.0.1
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       lowdb:
         specifier: ^7.0.1
         version: 7.0.1
@@ -57,9 +60,6 @@ importers:
       lil-gui:
         specifier: ^0.20.0
         version: 0.20.0
-      lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
       naive-ui:
         specifier: ^2.40.1
         version: 2.40.1(vue@3.5.12)

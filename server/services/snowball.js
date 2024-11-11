@@ -13,10 +13,10 @@ export function getSuggestStock(q) {
     return fetchSnowballAPI('https://xueqiu.com/query/v1/suggest_stock.json', { q })
 }
 
-export function getStock(symbol) {
+export function getStock(symbol, extend = 'detail') {
     return fetchSnowballAPI('https://stock.xueqiu.com/v5/stock/quote.json', {
         symbol,
-        extend: 'detail',
+        extend,
     })
 }
 
