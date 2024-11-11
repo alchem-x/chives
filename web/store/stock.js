@@ -130,7 +130,7 @@ export const useStockStore = defineStore('stock', {
                 begin: Date.now(),
                 period: 'day',
                 type: 'before',
-                count: '-2000',
+                count: '-2500',
                 indicator: 'kline'
             })
             if (data) {

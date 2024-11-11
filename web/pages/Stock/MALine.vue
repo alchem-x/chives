@@ -16,7 +16,7 @@ import { useStockStore } from '@/store/stock.js'
 const stockStore = useStockStore()
 
 const showMA = computed(() => {
-    return stockStore.kLineData
+    return !!stockStore.kLineData
 })
 
 const itemList = computed(() => {
@@ -42,6 +42,7 @@ const itemList = computed(() => {
             case 1000:
             case 1500:
             case 2000:
+            case 2500:
                 const ma = (sum / n)
                 r.push({ name: 'MA' + n, value: ma.toFixed(3), className: { red: ma > current, green: ma < current } })
                 break
