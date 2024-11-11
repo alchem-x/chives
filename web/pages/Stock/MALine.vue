@@ -1,6 +1,6 @@
 <template>
-    <div class="ma-line-container" v-if="stockStore.kLineData">
-        <NTag v-for="(it) of maList" size="small">
+    <div class="ma-line-container" v-if="showMA">
+        <NTag v-for="(it) of itemList" size="small">
             <span :class="it.className">
                 {{ it.name }}:{{ it.value }}
             </span>
@@ -15,7 +15,11 @@ import { useStockStore } from '@/store/stock.js'
 
 const stockStore = useStockStore()
 
-const maList = computed(() => {
+const showMA = computed(() => {
+    return stockStore.kLineData
+})
+
+const itemList = computed(() => {
     const current = stockStore.stockCurrentPrice
     const { item = [], column = [] } = stockStore.kLineData
     const r = []

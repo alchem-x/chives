@@ -12,9 +12,9 @@ export const useStockStore = defineStore('stock', {
             symbol: '',
             stockData: null,
             chartMinuteData: null,
+            kLineData: null,
             recentlyStockList: getFromLocalStorage('cw_recently_stock_list') ?? [],
             cronJobs: shallowRef([]),
-            kLineData: null,
         }
     },
     getters: {
@@ -54,6 +54,7 @@ export const useStockStore = defineStore('stock', {
             } else {
                 this.stockData = null
                 this.chartMinuteData = null
+                this.kLineData = null
             }
         },
         startCronJobs() {
