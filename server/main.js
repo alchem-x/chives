@@ -36,4 +36,6 @@ function main() {
     startWatch()
 }
 
-main()
+if (process.argv[1] === import.meta.filename) {
+    main()
+}
