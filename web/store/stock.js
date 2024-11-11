@@ -134,8 +134,6 @@ export const useStockStore = defineStore('stock', {
                 indicator: 'kline'
             })
             if (data) {
-
-
                 this.kLineData = data
             }
         }
