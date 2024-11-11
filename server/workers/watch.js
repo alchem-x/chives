@@ -53,4 +53,5 @@ export function startWatchJobs() {
         new Cron('*/2 * * * * *', { name: 'WatchStockPrice', }, watchStockPrice),
         new Cron('0 * * * * *', { name: 'WatchStock', }, watchStock)
     ])
+    console.info('Start cron jobs:', watchJobs.map((it) => it.name))
 }
