@@ -47,10 +47,12 @@ async function syncStockData() {
 export const stockJobs = []
 
 export function startStockJobs() {
-    stockJobs.push(...[
-        new Cron('0 30 15 * * *', { name: 'SyncStockData',timezone: 'Asia/Shanghai' }, syncStockData),
-    ])
-    console.info('Start cron job(s):', stockJobs.map((it) => it.name))
+    if (DB_TABLE_STOCK) {
+        stockJobs.push(...[
+            new Cron('0 30 15 * * *', { name: 'SyncStockData', timezone: 'Asia/Shanghai' }, syncStockData),
+        ])
+        console.info('Start cron job(s):', stockJobs.map((it) => it.name))
+    }
 }
 
 if (process.argv[1] === import.meta.filename) {
