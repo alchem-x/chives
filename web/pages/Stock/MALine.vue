@@ -38,6 +38,10 @@ const itemList = computed(() => {
             case 60:
             case 120:
             case 250:
+            case 500:
+            case 1000:
+            case 1500:
+            case 2000:
                 const ma = (sum / n)
                 r.push({ name: 'MA' + n, value: ma.toFixed(3), className: { red: ma > current, green: ma < current } })
                 break
