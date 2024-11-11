@@ -48,7 +48,7 @@ async function watchStock() {
     await database.write()
 }
 
-export function startWatch() {
+export function startWatchJobs() {
     watchJobs.push(...[
         new Cron('*/2 * * * * *', { name: 'WatchStockPrice', }, watchStockPrice),
         new Cron('0 * * * * *', { name: 'WatchStock', }, watchStock)
