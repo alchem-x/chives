@@ -10,17 +10,21 @@ export const sql = Router()
 const sqlContext = { db: null }
 
 if (SQLITE_PATH) {
-    sqlContext.db = await open({
-        filename: SQLITE_PATH,
-        driver: sqlite3.Database
-    })
+    try {
+        sqlContext.db = await open({
+            filename: SQLITE_PATH,
+            driver: sqlite3.Database
+        })
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 sql.post('/api/sql', auth, cors(), async (req, res) => {
     if (sqlContext.db) {
         try {
             const sql = req.body
-            const payload = await db.all(sql)
+            const payload = await sqlContext.db.all(sql)
             res.json({ payload })
         } catch (err) {
             res.json({ error: err.message })
