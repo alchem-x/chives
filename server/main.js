@@ -7,6 +7,7 @@ import { snowball } from './routers/snowball.js'
 import { db } from './routers/db.js'
 import { startWatchJobs } from './workers/watch.js'
 import { startStockJobs } from './workers/stock.js'
+import { sql } from './routers/sql.js'
 
 const dirname = import.meta.dirname
 
@@ -14,6 +15,7 @@ function useRouters(app) {
     app.use(hello)
     app.use(snowball)
     app.use(db)
+    app.use(sql)
 }
 
 function useStatic(app) {
@@ -31,6 +33,7 @@ function startApp(app) {
 function main() {
     const app = express()
     app.use(bodyParser.json())
+    app.use(bodyParser.text({ type: 'text/plain' }))
     useRouters(app)
     useStatic(app)
     startApp(app)

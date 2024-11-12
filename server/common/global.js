@@ -11,4 +11,5 @@ export const {
     DB_TOKEN,
     DB_HOST,
     DB_TABLE_STOCK,
+    SQLITE_PATH,
 } = parsed
