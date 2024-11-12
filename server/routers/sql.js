@@ -11,6 +11,7 @@ const sqlContext = { db: null }
 
 if (SQLITE_PATH) {
     try {
+        console.info('Open SQLite:', SQLITE_PATH)
         sqlContext.db = await open({
             filename: SQLITE_PATH,
             driver: sqlite3.Database
