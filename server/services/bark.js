@@ -4,5 +4,7 @@ export function sendBarkNotice(message) {
     if (BARK_API) {
         console.info('Send message:', message)
         const _ = fetch(`${BARK_API}/${message}`)
+    } else {
+        console.warn('NO BARK API')
     }
 }

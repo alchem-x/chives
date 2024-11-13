@@ -4,12 +4,14 @@ const { parsed } = config()
 
 export const {
     APP_PORT = 3000,
+    CW_TOKEN, 
     RESEND_MAIL,
     SNOWBALL_TOKEN,
-    CW_TOKEN, 
     BARK_API,
-    DB_TOKEN,
-    DB_HOST,
-    DB_TABLE_STOCK,
+    // nocodb
+    NOCODB_TOKEN,
+    NOCODB_HOST,
+    NOCODB_TABLE_STOCK,
+    // sqlite
     SQLITE_PATH,
 } = parsed

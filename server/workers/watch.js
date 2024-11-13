@@ -1,8 +1,9 @@
 import { Cron } from 'croner'
 import { getRealtimeStock, getStock } from '../services/snowball.js'
-import { database } from '../common/database.js'
 import { sendBarkNotice } from '../services/bark.js'
 import { isNumeric } from '../common/utils.js'
+import { SNOWBALL_TOKEN } from '../common/global.js'
+import { fileDB } from '../services/file_db.js'
 
 export const watchJobs = []
 
@@ -12,7 +13,7 @@ const WATCH_TYPE = {
 }
 
 async function watchStockPrice() {
-    for (const it of database.data.watchList) {
+    for (const it of fileDB.data.watchList) {
         if (it.enabled && it.marketStatus === '交易中') {
             const r = await getRealtimeStock(it.symbol)
             const data = r?.data?.[0]
@@ -33,11 +34,11 @@ async function watchStockPrice() {
             }
         }
     }
-    await database.write()
+    await fileDB.write()
 }
 
 async function watchStock() {
-    for (const it of database.data.watchList) {
+    for (const it of fileDB.data.watchList) {
         const r = await getStock(it.symbol)
         const data = r?.data
         if (data) {
@@ -45,13 +46,15 @@ async function watchStock() {
             it.current = data.quote.current
         }
     }
-    await database.write()
+    await fileDB.write()
 }
 
 export function startWatchJobs() {
-    watchJobs.push(...[
-        new Cron('*/2 * * * * *', { name: 'WatchStockPrice', }, watchStockPrice),
-        new Cron('0 * * * * *', { name: 'WatchStock', }, watchStock)
-    ])
-    console.info('Start cron job(s):', watchJobs.map((it) => it.name))
+    if (SNOWBALL_TOKEN) {
+        watchJobs.push(...[
+            new Cron('*/2 * * * * *', { name: 'WatchStockPrice', }, watchStockPrice),
+            new Cron('0 * * * * *', { name: 'WatchStock', }, watchStock)
+        ])
+        console.info('Start cron job(s):', watchJobs.map((it) => it.name))
+    }
 }

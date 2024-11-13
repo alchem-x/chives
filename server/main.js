@@ -5,9 +5,9 @@ import { APP_PORT } from './common/global.js'
 import { hello } from './routers/hello.js'
 import { snowball } from './routers/snowball.js'
 import { db } from './routers/db.js'
+import { sql } from './routers/sql.js'
 import { startWatchJobs } from './workers/watch.js'
 import { startStockJobs } from './workers/stock.js'
-import { sql } from './routers/sql.js'
 
 const dirname = import.meta.dirname
 

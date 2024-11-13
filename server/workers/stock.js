@@ -1,7 +1,7 @@
 import { Cron } from 'croner'
 import { getStock } from '../services/snowball.js'
-import { DB_TABLE_STOCK } from '../common/global.js'
-import { getTableData, updateTableData } from '../services/noco.js'
+import { NOCODB_TABLE_STOCK } from '../common/global.js'
+import { getTableData, updateTableData } from '../services/nocodb.js'
 
 function formatDate(date) {
     return new Date(date).toLocaleDateString().replace(/\//g, '-')
@@ -10,7 +10,7 @@ function formatDate(date) {
 async function syncStockData() {
     try {
         for (let i = 0; ; i += 1000) {
-            const d = await getTableData({ offset: 0 + i, limit: 1000, tableId: DB_TABLE_STOCK })
+            const d = await getTableData({ offset: 0 + i, limit: 1000, tableId: NOCODB_TABLE_STOCK })
             const list = d?.list
             if (list?.length) {
                 for (const it of list) {
@@ -34,7 +34,7 @@ async function syncStockData() {
                     delete it.CreatedAt
                     delete it.UpdatedAt
                 }
-                await updateTableData({ list, tableId: DB_TABLE_STOCK })
+                await updateTableData({ list, tableId: NOCODB_TABLE_STOCK })
             } else {
                 break
             }
@@ -47,7 +47,7 @@ async function syncStockData() {
 export const stockJobs = []
 
 export function startStockJobs() {
-    if (DB_TABLE_STOCK) {
+    if (NOCODB_TABLE_STOCK) {
         stockJobs.push(...[
             new Cron('0 30 15 * * *', { name: 'SyncStockData', timezone: 'Asia/Shanghai' }, syncStockData),
         ])

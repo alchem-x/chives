@@ -1,37 +1,26 @@
-import sqlite3 from 'sqlite3'
-import { open } from 'sqlite'
 import { Router } from 'express'
 import cors from 'cors'
-import { SQLITE_PATH } from '../common/global.js'
 import { auth } from '../common/auth.js'
+import { sqlContext } from '../services/sql_db.js'
 
-export const sql = Router()
-
-const sqlContext = { db: null }
-
-if (SQLITE_PATH) {
-    try {
-        console.info('Open SQLite:', SQLITE_PATH)
-        sqlContext.db = await open({
-            filename: SQLITE_PATH,
-            driver: sqlite3.Database
-        })
-    } catch (err) {
-        console.error(err)
-    }
-}
-
-sql.post('/api/sql', auth, cors(), async (req, res) => {
+function dbStatus(req, res, next) {
     if (sqlContext.db) {
-        try {
-            const sql = req.body
-            const payload = await sqlContext.db.all(sql)
-            res.json({ payload })
-        } catch (err) {
-            res.json({ error: err.message })
-        }
+        next()
     } else {
         res.json({ error: 'DB Not Found' })
     }
-})
+}
 
+async function querySQL(req, res) {
+    try {
+        const sql = req.body
+        const payload = await sqlContext.db.all(sql)
+        res.json({ payload })
+    } catch (err) {
+        res.json({ error: err.message })
+    }
+}
+
+export const sql = Router()
+
+sql.post('/api/sql', auth, dbStatus, cors(), querySQL)
