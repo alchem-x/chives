@@ -74,7 +74,7 @@ const info = computed(() => {
         ]
         const Stock = () => (
             <a href={getSnowballLink(quote.symbol)} target="_blank">
-                <NButton quaternary type="info" size="large">
+                <NButton quaternary type="info">
                     <span class="stock-name">
                         {quote.name}({quote.symbol})
                     </span>

@@ -1,6 +1,6 @@
 <template>
     <NSelect :value="value || null" @update:value="onUpdateValue" placeholder="搜索股票" :options="options"
-        :loading="loading" @search="onSuggestDebounced" size="large" :clear-filter-after-select="false" filterable
+        :loading="loading" @search="onSuggestDebounced" :clear-filter-after-select="false" filterable
         clearable remote>
         <template #empty>
             <span>无数据</span>

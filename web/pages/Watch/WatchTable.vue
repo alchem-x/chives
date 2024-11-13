@@ -1,16 +1,16 @@
 <template>
     <div class="list-table-container">
-        <NDataTable :loading="watchStore.dataLoading" :columns="columns" :data="itemList">
+        <NDataTable :loading="watchStore.dataLoading" :columns="columns" :data="itemList" size="small">
             <template #empty>
                 <span>无数据</span>
             </template>
         </NDataTable>
     </div>
     <div class="action-container">
-        <NButton size="large" @click="onClickNew" type="primary">
+        <NButton @click="onClickNew" type="primary">
             新增
         </NButton>
-        <NSwitch size="large" :value="watchStore.autoRefresh" @update:value="watchStore.changeAutoRefresh">
+        <NSwitch :value="watchStore.autoRefresh" @update:value="watchStore.changeAutoRefresh">
             <template #checked>
                 刷新
             </template>
@@ -53,8 +53,8 @@ function renderEventData(it) {
     }
     return (
         <div class="td-event">
-            <NSelect size="large" vModel:value={it.type} onUpdate:value={onChangeType} options={WATCH_TYPE_OPTIONS} style="width: 100px;" />
-            <NInput size="large" vModel:value={it.value} onBlur={onChangeValue} style="width: 104px;" placeholder="输入价格" clearable />
+            <NSelect vModel:value={it.type} onUpdate:value={onChangeType} options={WATCH_TYPE_OPTIONS} style="width: 100px;" />
+            <NInput vModel:value={it.value} onBlur={onChangeValue} style="width: 104px;" placeholder="输入价格" clearable />
         </div>
     )
 }
@@ -73,7 +73,7 @@ const columns = [
             }
             return (
                 <>
-                    <NButton size="large" text onClick={gotoStockPage}>
+                    <NButton text onClick={gotoStockPage}>
                         {it.name} ({it.symbol})
                     </NButton>
                     <div class="td-value">现价: {it.current}</div>
@@ -106,10 +106,10 @@ const columns = [
             }
             return (
                 <>
-                    <NSwitch value={it.enabled} onUpdate:value={onChangeStatus} size="large">
+                    <NSwitch value={it.enabled} onUpdate:value={onChangeStatus}>
                         {stateSwitchSlots}
                     </NSwitch>
-                    <NButton class="button-state-action" onClick={() => createUpdateWatchItemModal(it)} size="large">
+                    <NButton class="button-state-action" onClick={() => createUpdateWatchItemModal(it)}>
                         编辑
                     </NButton>
                 </>
@@ -121,7 +121,7 @@ const columns = [
         className: 'column-action',
         render: (it) => {
             return (
-                <NButton onClick={() => createUpdateWatchItemModal(it)} size="large">
+                <NButton onClick={() => createUpdateWatchItemModal(it)}>
                     编辑
                 </NButton>
             )

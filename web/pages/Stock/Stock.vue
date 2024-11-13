@@ -21,7 +21,7 @@
             <span class="title-collapse">盯盘</span>
           </template>
             <WatchTable />
-            <NButton class="all-watch" @click="gotoWatchPage" size="large" text>全部盯盘</NButton>
+            <NButton class="all-watch" @click="gotoWatchPage" text>全部盯盘</NButton>
         </NCollapseItem>
       </NCollapse>
     </div>

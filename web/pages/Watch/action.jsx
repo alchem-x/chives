@@ -67,13 +67,13 @@ function createWatchItemForm({ formRef, formState }) {
                         <StockInput vModel:value={formState.symbol} vModel:name={formState.name} immediate/>
                     </NFormItem>
                     <NFormItem label="事件类型" path="type" >
-                        <NSelect size="large" vModel:value={formState.type} options={WATCH_TYPE_OPTIONS} placeholder={rules.type.message} />
+                        <NSelect vModel:value={formState.type} options={WATCH_TYPE_OPTIONS} placeholder={rules.type.message} />
                     </NFormItem>
                     <NFormItem label="目标价格" path="value">
-                        <NInput size="large" vModel:value={formState.value} placeholder={rules.value.message} clearable />
+                        <NInput vModel:value={formState.value} placeholder={rules.value.message} clearable />
                     </NFormItem>
                     <NFormItem label="状态" path="status">
-                        <NSwitch vModel:value={formState.enabled} size="large">
+                        <NSwitch vModel:value={formState.enabled}>
                             {stateSwitchSlots}
                         </NSwitch>
                     </NFormItem>
@@ -117,10 +117,10 @@ export function createNewWatchItemModal(item) {
         footer: () => {
             return (
                 <div class={FooterClassName}>
-                    <NButton size="large" onClick={() => m.destroy()}>
+                    <NButton onClick={() => m.destroy()}>
                         关闭
                     </NButton>
-                    <NButton loading={watchStore.saveLoading} onClick={onSave} size="large" type="primary">
+                    <NButton loading={watchStore.saveLoading} onClick={onSave} type="primary">
                         保存
                     </NButton>
                 </div>
@@ -167,13 +167,13 @@ export function createUpdateWatchItemModal(item) {
         footer: () => {
             return (
                 <div class={FooterClassName}>
-                    <NButton class="btn-delete" loading={watchStore.deleteLoading} size="large" type="error" onClick={onDelete}>
+                    <NButton class="btn-delete" loading={watchStore.deleteLoading} type="error" onClick={onDelete}>
                         删除
                     </NButton>
-                    <NButton size="large" onClick={() => m.destroy()}>
+                    <NButton onClick={() => m.destroy()}>
                         关闭
                     </NButton>
-                    <NButton loading={watchStore.saveLoading} onClick={onSave} size="large" type="primary">
+                    <NButton loading={watchStore.saveLoading} onClick={onSave} type="primary">
                         保存
                     </NButton>
                 </div>

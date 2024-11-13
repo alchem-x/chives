@@ -1,7 +1,7 @@
 <template>
     <div class="search-form">
         <StockInput :value="stockStore.symbol" @update:value="onSelectSearch" />
-        <NButton size="large" @click="onClickSearch">搜索</NButton>
+        <NButton @click="onClickSearch">搜索</NButton>
     </div>
 </template>
 

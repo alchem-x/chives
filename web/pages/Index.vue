@@ -5,17 +5,17 @@
             <NFlex align="center" justify="center">
                 <NPageHeader title="开始摇滚 📈" />
                 <RouterLink :to="'/stock'">
-                    <NButton size="large">
+                    <NButton>
                         股票
                     </NButton>
                 </RouterLink>
                 <RouterLink :to="'/watch'">
-                    <NButton size="large">
+                    <NButton>
                         盯盘
                     </NButton>
                 </RouterLink>
                 <a href="https://tradingview.com/" target="_blank">
-                    <NButton text size="large">
+                    <NButton text>
                         <template #icon>
                             <TradingViewIcon />
                         </template>
@@ -25,7 +25,7 @@
                     </NButton>
                 </a>
                 <a href="https://github.com/alchem-x/chives-watch" target="_blank">
-                    <NButton text size="large">
+                    <NButton text>
                         <template #icon>
                             <GitHubIcon />
                         </template>
