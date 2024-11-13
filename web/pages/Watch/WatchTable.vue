@@ -74,9 +74,9 @@ const columns = [
             return (
                 <>
                     <NButton text onClick={gotoStockPage}>
-                        {it.name} ({it.symbol})
+                        {it.name}({it.symbol})
                     </NButton>
-                    <div class="td-value">现价: {it.current}</div>
+                    <div class="td-value">现价:{it.current}</div>
                     {renderEventData(it)}
                 </>
             )
@@ -180,7 +180,7 @@ onBeforeUnmount(() => {
         color: #666
     }
 
-    @container (max-width: 800px) {
+    @container (max-width: 680px) {
         :deep(.column-stock) {
             .td-event {
                 margin-top: .5rem;

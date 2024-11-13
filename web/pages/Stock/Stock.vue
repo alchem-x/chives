@@ -15,21 +15,21 @@
         </NCollapseItem>
       </NCollapse>
     </div>
-      <NCollapse v-if="guiState.token" arrow-placement="right">
-        <NCollapseItem>
-          <template #header>
-            <span class="title-collapse">盯盘</span>
-          </template>
-            <WatchTable />
-            <NButton class="all-watch" @click="gotoWatchPage" text>全部盯盘</NButton>
-        </NCollapseItem>
-      </NCollapse>
-    </div>
+    <NCollapse class="watch-section" v-if="guiState.token" arrow-placement="right">
+      <NCollapseItem>
+        <template #header>
+          <span class="title-collapse">盯盘</span>
+        </template>
+        <WatchTable />
+        <NButton class="all-watch" @click="gotoWatchPage" text>全部盯盘</NButton>
+      </NCollapseItem>
+    </NCollapse>
+  </div>
 </template>
 
 <script setup>
 import { inject, onBeforeUnmount, onMounted } from 'vue'
-import { NPageHeader, NButton, NCollapse, NCollapseItem,NFlex } from 'naive-ui'
+import { NPageHeader, NButton, NCollapse, NCollapseItem, NFlex } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router'
 import { useStockStore } from '@/store/stock.js'
 import { useWatchQuery } from '@/common/watchQuery.js'
@@ -90,6 +90,10 @@ useWatchQuery(stockStore, ['symbol'])
 }
 
 .all-watch {
+  margin-top: .5rem;
+}
+
+.watch-section {
   margin-top: .5rem;
 }
 </style>

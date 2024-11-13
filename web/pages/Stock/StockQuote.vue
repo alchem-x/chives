@@ -146,7 +146,7 @@ const info = computed(() => {
         }
     }
 
-    @container (max-width: 780px) {
+    @container (max-width: 680px) {
         .item-container {
             column-count: 2;
         }
