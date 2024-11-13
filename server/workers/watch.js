@@ -12,8 +12,15 @@ const WATCH_TYPE = {
     DOWN_TO: 'DOWN_TO',
 }
 
+
+
 async function watchStockPrice() {
     for (const it of fileDB.data.watchList) {
+        function sendPriceChangeNotice(label) {
+            const stockName = it.name ? it.name : it.symbol
+            const comment = it.comment ? `/${it.comment}` : ''
+            sendBarkNotice(`${label}${stockName}: ${it.current}${comment}`)
+        }
         if (it.enabled && it.marketStatus === '交易中') {
             const r = await getRealtimeStock(it.symbol)
             const data = r?.data?.[0]
@@ -21,13 +28,13 @@ async function watchStockPrice() {
                 it.current = data.current
                 if (it.type === WATCH_TYPE.UP_TO) {
                     if (isNumeric(it.value) && it.current >= parseFloat(it.value)) {
-                        sendBarkNotice(`⏰${it.name ?? ''}${it.symbol}价格涨到${it.current}${it.comment ? `/${it.comment}` : ''}`)
+                        sendPriceChangeNotice('📈')
                         it.enabled = false
                     }
                 }
                 if (it.type === WATCH_TYPE.DOWN_TO) {
                     if (isNumeric(it.value) && it.current <= parseFloat(it.value)) {
-                        sendBarkNotice(`⏰${it.name ?? ''}${it.symbol}价格跌到${it.current}${it.comment ? `/${it.comment}` : ''}`)
+                        sendPriceChangeNotice('📉')
                         it.enabled = false
                     }
                 }
