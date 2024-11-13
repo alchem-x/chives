@@ -33,6 +33,7 @@ async function syncStockData() {
                     }
                     delete it.CreatedAt
                     delete it.UpdatedAt
+                    await new Promise((resolve) => setTimeout(resolve, 100))
                 }
                 await updateTableData({ list, tableId: NOCODB_TABLE_STOCK })
             } else {
