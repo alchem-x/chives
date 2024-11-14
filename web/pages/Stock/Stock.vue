@@ -31,13 +31,13 @@
 import { inject, onBeforeUnmount, onMounted } from 'vue'
 import { NPageHeader, NButton, NCollapse, NCollapseItem, NFlex } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router'
-import { useStockStore } from '@/store/stock.js'
-import { useWatchQuery } from '@/common/watchQuery.js'
+import { useStockStore } from '#web/store/stock.js'
+import { useWatchQuery } from '#web/common/watchQuery.js'
 import StockQuote from './StockQuote.vue'
 import StockChart from './StockChart.vue'
 import SearchForm from './SearchForm.vue'
 import OptionalStock from './OptionalStock.vue'
-import WatchTable from '@/pages/Watch/WatchTable.vue'
+import WatchTable from '#web/pages/Watch/WatchTable.vue'
 import MALine from './MALine.vue'
 
 const route = useRoute()

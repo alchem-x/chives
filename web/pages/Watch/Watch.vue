@@ -8,7 +8,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { NPageHeader } from 'naive-ui'
-import { useWatchStore } from '@/store/watch.js'
+import { useWatchStore } from '#web/store/watch.js'
 import WatchTable from './WatchTable.vue'
 import { useRouter } from 'vue-router'
 

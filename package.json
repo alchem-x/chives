@@ -9,6 +9,10 @@
     "build": "webpack --mode=production",
     "serve": "node server/main.js"
   },
+  "imports": {
+    "#server/*": "./server/*",
+    "#web/*": "./web/*"
+  },
   "type": "module",
   "keywords": [],
   "author": "",

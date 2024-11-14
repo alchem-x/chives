@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { withProvider } from '@/common/providers.jsx'
+import { withProvider } from '#web/common/providers.jsx'
 
 const Index = () => import('./pages/Index.vue')
 const Stock = () => import('./pages/Stock/Stock.vue').then(({ default: C }) => withProvider(C))

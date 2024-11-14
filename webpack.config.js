@@ -13,7 +13,7 @@ export default function defineConfig(env) {
         entry: {
             main: resolve(import.meta.dirname, 'web/main.js'),
         },
-        output:{
+        output: {
             filename: '[name].[contenthash].js',
         },
         module: {
@@ -29,16 +29,16 @@ export default function defineConfig(env) {
                 {
                     test: /\.css$/,
                     use: [
-                      'vue-style-loader',
-                      'css-loader',
+                        'vue-style-loader',
+                        'css-loader',
                     ]
                 },
                 {
                     test: /\.less$/,
                     use: [
-                      'vue-style-loader',
-                      'css-loader',
-                      'less-loader',
+                        'vue-style-loader',
+                        'css-loader',
+                        'less-loader',
                     ]
                 },
                 {
@@ -66,11 +66,6 @@ export default function defineConfig(env) {
             }),
             new VueLoaderPlugin(),
         ],
-        resolve: {
-            alias: {
-                '@': resolve(import.meta.dirname, 'web'),
-            },
-        },
         optimization: {
             minimizer: [
                 new TerserPlugin({ extractComments: false, })

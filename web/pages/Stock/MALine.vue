@@ -11,7 +11,7 @@
 <script setup>
 import { NTag } from 'naive-ui'
 import { computed } from 'vue'
-import { useStockStore } from '@/store/stock.js'
+import { useStockStore } from '#web/store/stock.js'
 
 const stockStore = useStockStore()
 

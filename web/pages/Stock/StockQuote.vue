@@ -34,11 +34,11 @@
 import { computed } from 'vue'
 import { NButton, NCollapse, NCollapseItem } from 'naive-ui'
 import { isNil, isNumber } from 'lodash-es'
-import { simplifyNumber } from '@/common/formating.js'
-import { useStockStore } from '@/store/stock.js'
-import { getSnowballLink } from '@/common/snowball.js'
+import { simplifyNumber } from '#web/common/formating.js'
+import { useStockStore } from '#web/store/stock.js'
+import { getSnowballLink } from '#web/common/snowball.js'
 
-import LoadingSegment from '@/common/LoadingSegment.vue'
+import LoadingSegment from '#web/common/LoadingSegment.vue'
 
 const stockStore = useStockStore()
 

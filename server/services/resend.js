@@ -1,5 +1,5 @@
 import { Resend } from 'resend'
-import { RESEND_MAIL } from '../common/global.js'
+import { RESEND_MAIL } from '#server/common/global.js'
 
 const resend = new Resend(RESEND_MAIL)
 

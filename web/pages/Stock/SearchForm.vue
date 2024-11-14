@@ -7,8 +7,8 @@
 
 <script setup>
 import { NButton } from 'naive-ui'
-import { useStockStore } from '@/store/stock.js'
-import StockInput from '@/common/StockInput.vue'
+import { useStockStore } from '#web/store/stock.js'
+import StockInput from '#web/common/StockInput.vue'
 
 const stockStore = useStockStore()
 

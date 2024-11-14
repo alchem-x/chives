@@ -1,4 +1,4 @@
-import { getTokenFromStorage } from '@/common/gui.js'
+import { getTokenFromStorage } from '#web/common/gui.js'
 
 async function getErrorMessage(r) {
     if (r.status === 401) {

@@ -1,7 +1,7 @@
 import { Cron } from 'croner'
-import { getStock } from '../services/snowball.js'
-import { NOCODB_TABLE_STOCK } from '../common/global.js'
-import { getTableData, updateTableData } from '../services/nocodb.js'
+import { getStock } from '#server/services/snowball.js'
+import { NOCODB_TABLE_STOCK } from '#server/common/global.js'
+import { getTableData, updateTableData } from '#server/services/nocodb.js'
 
 function formatDate(date) {
     return new Date(date).toLocaleDateString().replace(/\//g, '-')

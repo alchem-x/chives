@@ -25,12 +25,12 @@
 import { NButton, NDataTable, NInput, NSelect, NSwitch } from 'naive-ui'
 import { createUpdateWatchItemModal } from './action.jsx'
 import { WATCH_TYPE_OPTIONS, stateSwitchSlots } from './constants.jsx'
-import { useWatchStore } from '@/store/watch.js'
-import { useStockStore } from '@/store/stock.js'
+import { useWatchStore } from '#web/store/watch.js'
+import { useStockStore } from '#web/store/stock.js'
 import { createNewWatchItemModal } from './action.jsx'
 import { useRoute, useRouter } from 'vue-router'
 import { computed, onBeforeUnmount } from 'vue'
-import { message } from '@/common/providers.jsx'
+import { message } from '#web/common/providers.jsx'
 
 const watchStore = useWatchStore()
 const stockStore = useStockStore()

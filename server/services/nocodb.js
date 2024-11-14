@@ -1,4 +1,4 @@
-import { NOCODB_TOKEN, NOCODB_HOST } from '../common/global.js'
+import { NOCODB_TOKEN, NOCODB_HOST } from '#server/common/global.js'
 
 export async function getTableData({ offset, limit, tableId }) {
     const params = new URLSearchParams({ offset, limit })

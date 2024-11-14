@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getStock, getRealtimeStock, getSuggestStock, getChartMinute, getKLine } from '../services/snowball.js'
+import { getStock, getRealtimeStock, getSuggestStock, getChartMinute, getKLine } from '#server/services/snowball.js'
 
 export const snowball = Router()
 

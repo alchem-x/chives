@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { auth } from '../common/auth.js'
-import { fileDB } from '../services/file_db.js'
+import { auth } from '#server/common/auth.js'
+import { fileDB } from '#server/services/file_db.js'
 
 export const db = Router()
 

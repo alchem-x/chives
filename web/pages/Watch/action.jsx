@@ -1,9 +1,9 @@
 import { defineComponent, ref } from 'vue'
 import { NInput, NSelect, NButton, NSwitch, NForm, NFormItem } from 'naive-ui'
 import { css } from '@emotion/css'
-import { modal, message } from '@/common/providers.jsx'
-import { useWatchStore } from '@/store/watch.js'
-import StockInput from '@/common/StockInput.vue'
+import { modal, message } from '#web/common/providers.jsx'
+import { useWatchStore } from '#web/store/watch.js'
+import StockInput from '#web/common/StockInput.vue'
 import { WATCH_TYPE_OPTIONS, stateSwitchSlots } from './constants.jsx'
 
 const FooterClassName = css`

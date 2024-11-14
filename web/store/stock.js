@@ -2,9 +2,9 @@ import { Cron } from 'croner'
 import { shallowRef } from 'vue'
 import { defineStore } from 'pinia'
 import { get } from 'lodash-es'
-import { useWatchStore } from '@/store/watch.js'
-import { getStock, getRealtimeStock, getChartMinute, getChartKLine } from '@/apis/snowball.js'
-import { getFromLocalStorage, setToLocalStorage } from '@/common/web_storage.js'
+import { useWatchStore } from '#web/store/watch.js'
+import { getStock, getRealtimeStock, getChartMinute, getChartKLine } from '#web/apis/snowball.js'
+import { getFromLocalStorage, setToLocalStorage } from '#web/common/web_storage.js'
 
 export const useStockStore = defineStore('stock', {
     state() {

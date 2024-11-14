@@ -1,4 +1,4 @@
-import { BARK_API } from '../common/global.js'
+import { BARK_API } from '#server/common/global.js'
 
 export function sendBarkNotice(message) {
     if (BARK_API) {

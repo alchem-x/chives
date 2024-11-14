@@ -10,9 +10,9 @@ import { shallowRef, ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { createChart } from 'lightweight-charts'
 import dayjs from 'dayjs'
 import { debounce } from 'lodash-es'
-import { useStockStore } from '@/store/stock.js'
-import { simplifyNumber } from '@/common/formating.js'
-import LoadingSegment from '@/common/LoadingSegment.vue'
+import { useStockStore } from '#web/store/stock.js'
+import { simplifyNumber } from '#web/common/formating.js'
+import LoadingSegment from '#web/common/LoadingSegment.vue'
 
 const chartContainer = ref()
 const chart = shallowRef()

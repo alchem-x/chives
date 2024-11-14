@@ -1,4 +1,4 @@
-import { SNOWBALL_TOKEN } from '../common/global.js'
+import { SNOWBALL_TOKEN } from '#server/common/global.js'
 
 async function fetchSnowballAPI(url, params) {
     const response = await fetch(`${url}?${new URLSearchParams(params)}`, {

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import cors from 'cors'
-import { auth } from '../common/auth.js'
-import { sqlContext } from '../services/sql_db.js'
+import { auth } from '#server/common/auth.js'
+import { sqlContext } from '#server/services/sql_db.js'
 
 function dbStatus(req, res, next) {
     if (sqlContext.db) {

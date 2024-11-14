@@ -12,8 +12,8 @@
 import { ref, watch } from 'vue'
 import { NSelect } from 'naive-ui'
 import { debounce } from 'lodash-es'
-import { message } from '@/common/providers.jsx'
-import { getSuggestStock } from '@/apis/snowball.js'
+import { message } from '#web/common/providers.jsx'
+import { getSuggestStock } from '#web/apis/snowball.js'
 
 const props = defineProps(['value', 'name', 'immediate'])
 const emit = defineEmits(['update:value', 'update:name'])

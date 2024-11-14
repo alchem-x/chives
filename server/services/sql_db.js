@@ -1,6 +1,6 @@
 import { open } from 'sqlite'
 import sqlite3 from 'sqlite3'
-import { SQLITE_PATH } from '../common/global.js'
+import { SQLITE_PATH } from '#server/common/global.js'
 
 export const sqlContext = { db: null }
 
