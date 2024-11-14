@@ -42,12 +42,15 @@ import LoadingSegment from '#web/common/LoadingSegment.vue'
 
 const stockStore = useStockStore()
 
+const getToFixedN = (d) => (n) => isNumber(n) ? parseFloat(n.toFixed(d)) : n
+const toFixed2 = getToFixedN(2)
+const toFixed3 = getToFixedN(3)
+
 const info = computed(() => {
     const { quote, market = {}, others = {} } = stockStore.stockData
     if (quote) {
-        const toFixed2 = (n) => isNumber(n) ? n.toFixed(2) : n
         const items = [
-            { name: '价格', value: quote.current ? `${quote.current} (${quote.chg >= 0 ? `+${quote.chg ?? 0}` : quote.chg}, ${quote.percent >= 0 ? `+${toFixed2(quote.percent) ?? 0}` : toFixed2(quote.percent)}%)` : '', className: { red: quote.chg > 0, green: quote.chg < 0 } },
+            { name: '价格', value: quote.current ? `${toFixed3(quote.current)} (${quote.chg >= 0 ? `+${toFixed3(quote.chg) ?? 0}` : toFixed3(quote.chg)}, ${quote.percent >= 0 ? `+${toFixed2(quote.percent) ?? 0}` : toFixed2(quote.percent)}%)` : '', className: { red: quote.chg > 0, green: quote.chg < 0 } },
             { name: '最高', value: quote.high, className: { red: quote.high > quote.last_close, green: quote.high < quote.last_close } },
             { name: '最低', value: quote.low, className: { red: quote.low > quote.last_close, green: quote.low < quote.last_close } },
             { name: '今开', value: quote.open, className: { red: quote.open > quote.last_close, green: quote.open < quote.last_close } },
