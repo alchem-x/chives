@@ -1,6 +1,6 @@
 <template>
     <div class="index-container">
-        <img :src="'/images/stock.png'">
+        <img :src="'/images/stock.webp'">
         <div class="nav">
             <NFlex align="center" justify="center">
                 <NPageHeader title="开始摇滚 📈" />
