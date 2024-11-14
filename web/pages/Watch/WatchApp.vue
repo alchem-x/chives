@@ -1,5 +1,5 @@
 <template>
-    <div class="watch-container">
+    <div class="watch-container app-container">
         <NPageHeader :on-back="onBack" title="盯盘" />
         <WatchTable />
     </div>

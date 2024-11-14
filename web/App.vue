@@ -1,7 +1,5 @@
 <template>
-    <div class="app-container">
-        <RouterView />
-    </div>
+    <RouterView />
 </template>
 
 <script setup>
@@ -12,7 +10,7 @@ provide('GUI_STATE', useGUI())
 </script>
 
 <style scoped lang="less">
-.app-container {
+:deep(.app-container) {
     box-sizing: border-box;
     max-width: 800px;
     min-height: 100vh;

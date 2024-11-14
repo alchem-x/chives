@@ -1,5 +1,5 @@
 <template>
-  <div class="stock-container">
+  <div class="stock-container app-container">
     <NPageHeader :on-back="onBack" title="股票" />
     <SearchForm />
     <OptionalStock />
