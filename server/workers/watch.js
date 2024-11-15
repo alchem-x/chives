@@ -12,8 +12,6 @@ const WATCH_TYPE = {
     DOWN_TO: 'DOWN_TO',
 }
 
-
-
 async function watchStockPrice() {
     for (const it of fileDB.data.watchList) {
         function sendPriceChangeNotice(label) {

@@ -7,10 +7,11 @@ function formatDate(date) {
     return new Date(date).toLocaleDateString().replace(/\//g, '-')
 }
 
-async function syncStockData() {
+async function syncStockData(tableId) {
     try {
+        console.info(new Date().toLocaleString(), '-', 'Start SyncStockData Job')
         for (let i = 0; ; i += 1000) {
-            const d = await getTableData({ offset: 0 + i, limit: 1000, tableId: NOCODB_TABLE_STOCK })
+            const d = await getTableData({ offset: 0 + i, limit: 1000, tableId })
             const list = d?.list
             if (list?.length) {
                 for (const it of list) {
@@ -35,7 +36,7 @@ async function syncStockData() {
                     delete it.UpdatedAt
                     await new Promise((resolve) => setTimeout(resolve, 100))
                 }
-                await updateTableData({ list, tableId: NOCODB_TABLE_STOCK })
+                await updateTableData({ list, tableId })
             } else {
                 break
             }
@@ -50,12 +51,12 @@ export const stockJobs = []
 export function startStockJobs() {
     if (NOCODB_TABLE_STOCK) {
         stockJobs.push(...[
-            new Cron('0 30 15 * * *', { name: 'SyncStockData', timezone: 'Asia/Shanghai' }, syncStockData),
+            new Cron('0 30 15 * * *', { name: 'SyncStockData', timezone: 'Asia/Shanghai' }, () => syncStockData(NOCODB_TABLE_STOCK)),
         ])
         console.info('Start cron job(s):', stockJobs.map((it) => it.name))
     }
 }
 
 if (process.argv[1] === import.meta.filename) {
-    await syncStockData()
+    await syncStockData(NOCODB_TABLE_STOCK)
 }
