@@ -13,6 +13,7 @@ const WATCH_TYPE = {
 }
 
 async function watchStockPrice() {
+    console.info(new Date().toLocaleString(), '-', 'Start WatchStockPrice Job')
     for (const it of fileDB.data.watchList) {
         function sendPriceChangeNotice(label) {
             const stockName = it.name ? it.name : it.symbol
@@ -43,6 +44,7 @@ async function watchStockPrice() {
 }
 
 async function watchStock() {
+    console.info(new Date().toLocaleString(), '-', 'Start WatchStock Job')
     for (const it of fileDB.data.watchList) {
         const r = await getStock(it.symbol)
         const data = r?.data
