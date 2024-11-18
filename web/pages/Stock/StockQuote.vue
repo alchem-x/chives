@@ -37,7 +37,6 @@ import { isNil, isNumber } from 'lodash-es'
 import { simplifyNumber } from '#web/common/formating.js'
 import { useStockStore } from '#web/store/stock.js'
 import { getSnowballLink } from '#web/common/snowball.js'
-
 import LoadingSegment from '#web/common/LoadingSegment.vue'
 
 const stockStore = useStockStore()
