@@ -149,7 +149,7 @@ const info = computed(() => {
         }
     }
 
-    @container (max-width: 700px) {
+    @container (max-width: 720px) {
         .item-container {
             column-count: 2;
         }
