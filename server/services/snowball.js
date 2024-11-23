@@ -14,10 +14,12 @@ export function getSuggestStock(q) {
 }
 
 export function getStock(symbol, extend = 'detail') {
-    return fetchSnowballAPI('https://stock.xueqiu.com/v5/stock/quote.json', {
-        symbol,
-        extend,
-    })
+    if (symbol) {
+        return fetchSnowballAPI('https://stock.xueqiu.com/v5/stock/quote.json', {
+            symbol,
+            extend,
+        })
+    }
 }
 
 export function getRealtimeStock(symbol) {

@@ -1,8 +1,8 @@
 import { resolve } from 'node:path'
+import webpack from 'webpack'
+import { VueLoaderPlugin } from 'vue-loader'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
-import { VueLoaderPlugin } from 'vue-loader'
-import webpack from 'webpack'
 
 /**
  * @returns {webpack.Configuration}

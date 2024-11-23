@@ -15,7 +15,7 @@ async function syncStockData(tableId) {
             const list = d?.list
             if (list?.length) {
                 for (const it of list) {
-                    const { data } = await getStock(it.symbol)
+                    const { data } = await getStock(it.symbol) ?? {}
                     if (data && data.quote) {
                         const quote = data.quote
                         it.name = quote.name
