@@ -9,7 +9,7 @@ function formatDate(date) {
 
 async function syncStockData(tableId) {
     try {
-        console.info(new Date().toLocaleString(), '-', 'Start SyncStockData Job')
+        console.debug(new Date().toLocaleString(), '-', 'Start SyncStockData Job')
         for (let i = 0; ; i += 1000) {
             const d = await getTableData({ offset: 0 + i, limit: 1000, tableId })
             const list = d?.list

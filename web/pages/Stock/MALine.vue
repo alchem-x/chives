@@ -1,11 +1,13 @@
 <template>
-    <div class="ma-line-container" v-if="showMA">
-        <NTag v-for="(it) of itemList" size="small">
-            <span :class="it.className">
-                {{ it.name }}:{{ it.value }}
-            </span>
-        </NTag>
-    </div>
+    <Transition name="fade">
+        <div class="ma-line-container" v-if="showMA">
+            <NTag v-for="(it) of itemList" size="small">
+                <span :class="it.className">
+                    {{ it.name }}:{{ it.value }}
+                </span>
+            </NTag>
+        </div>
+    </Transition>
 </template>
 
 <script setup>
@@ -69,5 +71,14 @@ const itemList = computed(() => {
     .green {
         color: #093;
     }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
