@@ -24,6 +24,11 @@ function useStatic(app) {
     app.use((_, res) => res.sendFile(resolve(dirname, '..', 'dist', 'index.html')))
 }
 
+function startJobs() {
+    startWatchJobs()
+    startStockJobs()
+}
+
 function startApp(app) {
     app.listen(APP_PORT, () => {
         console.info(`Serving app: http://localhost:${APP_PORT}`)
@@ -37,8 +42,7 @@ function main() {
     useRouters(app)
     useStatic(app)
     startApp(app)
-    startWatchJobs()
-    startStockJobs()
+    startJobs()
 }
 
 if (process.argv[1] === import.meta.filename) {
