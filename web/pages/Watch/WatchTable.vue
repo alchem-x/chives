@@ -31,6 +31,7 @@ import { useWatchStore } from '#web/store/watch.js'
 import { useStockStore } from '#web/store/stock.js'
 import { createNewWatchItemModal } from './action.jsx'
 import { message } from '#web/common/providers.jsx'
+import { getCurrentPriceItem } from '#web/common/price.js'
 
 const watchStore = useWatchStore()
 const stockStore = useStockStore()
@@ -52,7 +53,7 @@ function renderEventData(it) {
         }
     }
     return (
-        <div class="td-event">
+        <div class={['td-event', it.type]}>
             <NSelect vModel:value={it.type} onUpdate:value={onChangeType} options={WATCH_TYPE_OPTIONS} style="width: 100px;" />
             <NInput vModel:value={it.value} onBlur={onChangeValue} style="width: 104px;" placeholder="输入价格" clearable />
         </div>
@@ -65,18 +66,20 @@ const columns = [
         className: 'column-stock',
         render: (it) => {
 
-            function gotoStockPage() {
+            const gotoStockPage = () => {
                 router.push({
                     path: '/stock',
                     query: { symbol: it.symbol },
                 })
             }
+
+            const currentPrice = getCurrentPriceItem(it)
             return (
                 <>
                     <NButton text onClick={gotoStockPage}>
                         {it.name}({it.symbol})
                     </NButton>
-                    <div class="td-value">现价:{it.current}</div>
+                    <div class="td-value">现价:<span style={currentPrice.style}>{currentPrice.value}</span></div>
                     {renderEventData(it)}
                 </>
             )

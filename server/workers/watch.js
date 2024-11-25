@@ -49,6 +49,8 @@ async function watchStock() {
         if (data) {
             it.marketStatus = data.market.status
             it.current = data.quote.current
+            it.chg = data.quote.chg
+            it.percent = data.quote.percent
         }
     }
     await fileDB.write()
