@@ -44,7 +44,6 @@ async function watchStockPrice() {
 }
 
 async function watchStock() {
-    console.debug(new Date().toLocaleString(), '-', 'Run WatchStock Job')
     for (const it of fileDB.data.watchList) {
         const r = await getStock(it.symbol)
         const data = r?.data
