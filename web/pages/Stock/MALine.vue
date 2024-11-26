@@ -62,7 +62,7 @@ const itemList = computed(() => {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: .5rem;
-    gap: .5rem;
+    gap: .25rem;
 
     .red {
         color: #ee2500;
@@ -72,13 +72,14 @@ const itemList = computed(() => {
         color: #093;
     }
 }
+
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
-  opacity: 0;
+    opacity: 0;
 }
 </style>
