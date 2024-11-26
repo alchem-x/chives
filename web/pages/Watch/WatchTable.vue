@@ -11,12 +11,8 @@
             新增
         </NButton>
         <NSwitch :value="watchStore.autoRefresh" @update:value="watchStore.changeAutoRefresh">
-            <template #checked>
-                刷新
-            </template>
-            <template #unchecked>
-                刷新
-            </template>
+            <template #checked> 刷新 </template>
+            <template #unchecked> 刷新 </template>
         </NSwitch>
     </div>
 </template>
@@ -38,26 +34,37 @@ const stockStore = useStockStore()
 const route = useRoute()
 const router = useRouter()
 
-function renderEventData(it) {
-    async function onChangeType(ev) {
-        await watchStore.updateWatchItem({ ...it, type: ev, })
-        it.type = ev
+const EventData = ({ record }) => {
+    const onChangeType = async (ev) => {
+        await watchStore.updateWatchItem({ ...record, type: ev, })
+        record.type = ev
         message.success('变更事件类型')
     }
-    async function onChangeValue(ev) {
-        if (it.value) {
-            await watchStore.updateWatchItem({ ...it })
+    const onChangeValue = async () => {
+        if (record.value) {
+            await watchStore.updateWatchItem({ ...record })
             message.success('更新价格')
         } else {
             await watchStore.onSearch()
         }
     }
     return (
-        <div class={['td-event', it.type]}>
-            <NSelect vModel:value={it.type} onUpdate:value={onChangeType} options={WATCH_TYPE_OPTIONS} style="width: 100px;" />
-            <NInput vModel:value={it.value} onBlur={onChangeValue} style="width: 104px;" placeholder="输入价格" clearable />
+        <div class={['td-event', record.type]}>
+            <NSelect vModel:value={record.type} onUpdate:value={onChangeType} options={WATCH_TYPE_OPTIONS} style="width: 100px;" />
+            <NInput vModel:value={record.value} onBlur={onChangeValue} style="width: 104px;" placeholder="输入价格" clearable />
         </div>
     )
+}
+
+const PriceLabel = ({ record, alt = '' }) => {
+    const currentPrice = getCurrentPriceItem(record)
+    if (currentPrice.value) {
+        return (
+            <span style={currentPrice.style}>{currentPrice.value}</span>
+        )
+    } else {
+        return alt
+    }
 }
 
 const columns = [
@@ -65,7 +72,6 @@ const columns = [
         title: '股票',
         className: 'column-stock',
         render: (it) => {
-
             const gotoStockPage = () => {
                 router.push({
                     path: '/stock',
@@ -73,22 +79,32 @@ const columns = [
                 })
             }
 
-            const currentPrice = getCurrentPriceItem(it)
             return (
                 <>
                     <NButton text onClick={gotoStockPage}>
                         {it.name}({it.symbol})
                     </NButton>
-                    <div class="td-value">现价:<span style={currentPrice.style}>{currentPrice.value}</span></div>
-                    {renderEventData(it)}
+                    <div class="td-value">
+                        <PriceLabel record={it} />
+                    </div>
+                    <EventData record={it} />
                 </>
             )
         }
     },
     {
+        title: '价格',
+        className: 'column-price',
+        render: (it) => (
+            <PriceLabel record={it} alt="-" />
+        ),
+    },
+    {
         title: '事件',
         className: 'column-event',
-        render: renderEventData,
+        render: (it) => (
+            <EventData record={it} />
+        ),
     },
     {
         title: '备注',
@@ -180,6 +196,7 @@ onBeforeUnmount(() => {
     }
 
     :deep(.td-value) {
+        display: none;
         color: #666
     }
 
@@ -211,6 +228,10 @@ onBeforeUnmount(() => {
         :deep(.td-value) {
             display: inline-block;
             margin-left: .5rem;
+        }
+
+        :deep(.column-price) {
+            display: none;
         }
     }
 }
