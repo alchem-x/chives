@@ -11,8 +11,8 @@
             新增
         </NButton>
         <NSwitch :value="watchStore.autoRefresh" @update:value="watchStore.changeAutoRefresh">
-            <template #checked> 刷新 </template>
-            <template #unchecked> 刷新 </template>
+            <template #checked>刷新</template>
+            <template #unchecked>刷新</template>
         </NSwitch>
     </div>
 </template>
@@ -81,7 +81,7 @@ const columns = [
 
             return (
                 <>
-                    <NButton text onClick={gotoStockPage}>
+                    <NButton text onClick={gotoStockPage} type="info" >
                         {it.name}({it.symbol})
                     </NButton>
                     <div class="td-value">

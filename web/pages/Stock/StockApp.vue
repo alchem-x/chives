@@ -21,9 +21,7 @@
           <span class="title-collapse">盯盘</span>
         </template>
         <template #header-extra>
-          <NButton text @click="gotoWatchPage">
-            全部盯盘
-          </NButton>
+          <NButton @click="gotoWatchPage" quaternary type="info" >全部盯盘</NButton>
         </template>
         <WatchTable />
       </NCollapseItem>

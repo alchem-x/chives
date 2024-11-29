@@ -1,22 +1,25 @@
 <template>
     <div class="stock-quote-container">
         <template v-if="stockStore.stockData">
-            <div v-if="info.Stock">
-                <component :is="info.Stock" />
-            </div>
             <div class="item-container">
-                <div class="item" v-for="(it) of info.items">
+                <div class="item" v-for="(it) of items">
                     <span class="name">{{ it.name }}:</span>
                     <span class="value" :class="it.className">{{ it.value }}</span>
                 </div>
             </div>
-            <NCollapse v-if="info.extraItems" arrow-placement="right">
+            <NCollapse v-if="extraItems" arrow-placement="right">
                 <NCollapseItem>
                     <template #header>
                         <span class="title-collapse">更多</span>
                     </template>
+                    <template #header-extra>
+                        <NFlex size="small">
+                            <SnowballLink />
+                            <TVLink />
+                        </NFlex>
+                    </template>
                     <div class="item-container">
-                        <div class="item" v-for="(it) of info.extraItems">
+                        <div class="item" v-for="(it) of extraItems">
                             <span class="name">{{ it.name }}:</span>
                             <span class="value" :class="it.className">{{ it.value }}</span>
                         </div>
@@ -32,20 +35,46 @@
 
 <script setup lang="jsx">
 import { computed } from 'vue'
-import { NButton, NCollapse, NCollapseItem } from 'naive-ui'
+import { NButton, NFlex, NCollapse, NCollapseItem } from 'naive-ui'
 import { isNil } from 'lodash-es'
 import { simplifyNumber } from '#web/common/formating.js'
 import { useStockStore } from '#web/store/stock.js'
-import { getSnowballLink } from '#web/common/snowball.js'
+import { getSnowballLink, getTVLink } from '#web/common/external_links.js'
 import LoadingSegment from '#web/common/LoadingSegment.vue'
 import { getCurrentPriceItem, toFixed2 } from '#web/common/price.js'
+import TradingViewIcon from '#web/common/TradingViewIcon.vue'
+import SnowballIcon from '#web/common/SnowballIcon.vue'
 
 const stockStore = useStockStore()
 
-const info = computed(() => {
-    const { quote, market = {}, others = {} } = stockStore.stockData
+const SnowballLink = () => {
+    const { quote } = stockStore.stockData
+    return (
+        <NButton href={getSnowballLink(quote)} target="_blank" quaternary type="info" tag="a">
+            {{
+                icon: () => <SnowballIcon />,
+                default: () => '雪球',
+            }}
+        </NButton>
+    )
+}
+
+const TVLink = () => {
+    const { quote } = stockStore.stockData
+    return (
+        <NButton quaternary type="info" tag="a" href={getTVLink(quote)} target="_blank">
+            {{
+                icon: () => <TradingViewIcon />,
+                default: () => 'TradingView',
+            }}
+        </NButton>
+    )
+}
+
+const items = computed(() => {
+    const { quote, others = {} } = stockStore.stockData
     if (quote) {
-        const items = [
+        return [
             { name: '价格', ...getCurrentPriceItem(quote) },
             { name: '最高', value: quote.high, className: { red: quote.high > quote.last_close, green: quote.high < quote.last_close } },
             { name: '最低', value: quote.low, className: { red: quote.low > quote.last_close, green: quote.low < quote.last_close } },
@@ -59,8 +88,21 @@ const info = computed(() => {
             { name: '成交额', value: simplifyNumber(quote.amount), },
             { name: '换手', value: quote.turnover_rate ? quote.turnover_rate + '%' : null, },
             { name: '振幅', value: quote.amplitude ? quote.amplitude + '%' : null, },
-        ]
-        const extraItems = [
+        ].filter((it) => !isNil(it.value))
+    } else {
+        return {
+            items: [
+                { name: '异常', value: '数据为空', className: 'red' }
+            ],
+        }
+    }
+
+})
+
+const extraItems = computed(() => {
+    const { quote, market = {} } = stockStore.stockData
+    if (quote) {
+        return [
             { name: '总市值', value: simplifyNumber(quote.market_capital), },
             { name: '市盈率(动)', value: quote.pe_forecast < 0 ? '亏损' : toFixed2(quote.pe_forecast), },
             { name: '市盈率(静)', value: quote.pe_lyr < 0 ? '亏损' : toFixed2(quote.pe_lyr), },
@@ -70,30 +112,9 @@ const info = computed(() => {
             { name: '货币单位', value: quote.currency, },
             { name: '交易所', value: quote.exchange, },
             { name: '监控', value: market.status, },
-        ]
-        const Stock = () => (
-            <a href={getSnowballLink(quote.symbol)} target="_blank">
-                <NButton quaternary type="info">
-                    <span class="stock-name">
-                        {quote.name}({quote.symbol})
-                    </span>
-                </NButton>
-            </a>
-        )
-        return {
-            Stock,
-            items: items.filter((it) => !isNil(it.value)),
-            extraItems: extraItems.filter((it) => !isNil(it.value)),
-        }
-    } else {
-        return {
-            items: [
-                { name: '异常', value: '数据为空', className: 'red' }
-            ],
-        }
+        ].filter((it) => !isNil(it.value))
     }
 })
-
 </script>
 
 <style scoped lang="less">
