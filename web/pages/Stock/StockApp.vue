@@ -20,8 +20,12 @@
         <template #header>
           <span class="title-collapse">盯盘</span>
         </template>
+        <template #header-extra>
+          <NButton text @click="gotoWatchPage">
+            全部盯盘
+          </NButton>
+        </template>
         <WatchTable />
-        <NButton class="all-watch" @click="gotoWatchPage" text>全部盯盘</NButton>
       </NCollapseItem>
     </NCollapse>
   </div>
@@ -29,7 +33,7 @@
 
 <script setup>
 import { inject, onBeforeUnmount, onMounted } from 'vue'
-import { NPageHeader, NButton, NCollapse, NCollapseItem, NFlex } from 'naive-ui'
+import { NPageHeader, NButton, NCollapse, NCollapseItem } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router'
 import { useStockStore } from '#web/store/stock.js'
 import { useWatchQuery } from '#web/common/watchQuery.js'
@@ -87,10 +91,6 @@ useWatchQuery(stockStore, ['symbol'])
 .title-collapse {
   font-size: 16px;
   user-select: none;
-}
-
-.all-watch {
-  margin-top: .5rem;
 }
 
 .watch-section {
