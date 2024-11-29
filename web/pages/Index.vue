@@ -14,26 +14,14 @@
                         盯盘
                     </NButton>
                 </RouterLink>
-                <a href="https://tradingview.com/" target="_blank">
-                    <NButton text>
-                        <template #icon>
-                            <TradingViewIcon />
-                        </template>
-                        <template #default>
-                            TradingView
-                        </template>
-                    </NButton>
-                </a>
-                <a href="https://github.com/alchem-x/chives-watch" target="_blank">
-                    <NButton text>
-                        <template #icon>
-                            <GitHubIcon />
-                        </template>
-                        <template #default>
-                            GitHub
-                        </template>
-                    </NButton>
-                </a>
+                <NButton tag="a" text href="https://github.com/alchem-x/chives-watch" target="_blank">
+                    <template #icon>
+                        <GitHubIcon />
+                    </template>
+                    <template #default>
+                        GitHub
+                    </template>
+                </NButton>
             </NFlex>
         </div>
     </div>
