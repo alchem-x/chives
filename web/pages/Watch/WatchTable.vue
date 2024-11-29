@@ -186,7 +186,7 @@ onBeforeUnmount(() => {
         }
 
         .n-data-table-td {
-            padding: 0 8px;
+            padding: 2px 8px;
         }
     }
 
@@ -224,13 +224,6 @@ onBeforeUnmount(() => {
     }
 
     @container (max-width: 680px) {
-
-        :deep(.n-data-table-table) {
-
-            .n-data-table-td {
-                padding: 2px 8px;
-            }
-        }
 
         :deep(.column-stock) {
             .td-event {
