@@ -15,11 +15,12 @@ export const useStockStore = defineStore('stock', {
             kLineData: null,
             recentlyStockList: getFromLocalStorage('cw_recently_stock_list') ?? [],
             cronJobs: shallowRef([]),
+            dataLoading: false,
         }
     },
     getters: {
         stockCurrentPrice() {
-            return get(this, 'stockData.quote.current') 
+            return get(this, 'stockData.quote.current')
         },
         isStockTrading() {
             return get(this, 'stockData.market.status') === '交易中'
@@ -103,11 +104,16 @@ export const useStockStore = defineStore('stock', {
             }
         },
         async onSearch() {
-            await Promise.all([
-                this.fetchStockData(),
-                this.fetchChartMinuteData('1d'),
-                this.fetchKLineData(),
-            ])
+            try {
+                this.dataLoading = true
+                await Promise.all([
+                    this.fetchStockData(),
+                    this.fetchChartMinuteData('1d'),
+                    this.fetchKLineData(),
+                ])
+            } finally {
+                this.dataLoading = false
+            }
         },
         async fetchStockData() {
             const data = await getStock(this.symbol)

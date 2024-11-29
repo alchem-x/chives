@@ -1,10 +1,8 @@
 <template>
     <Transition name="fade">
         <div class="ma-line-container" v-if="showMA">
-            <NTag v-for="(it) of itemList" size="small">
-                <span :class="it.className">
-                    {{ it.name }}:{{ it.value }}
-                </span>
+            <NTag v-for="(it) of itemList" size="small" :bordered="false" :type="it.tagType">
+                {{ it.name }}:{{ it.value }}
             </NTag>
         </div>
     </Transition>
@@ -46,7 +44,9 @@ const itemList = computed(() => {
             case 2000:
             case 2500:
                 const ma = (sum / n)
-                r.push({ name: 'MA' + n, value: ma.toFixed(3), className: { red: ma > current, green: ma < current } })
+                const className = { red: ma > current, green: ma < current }
+                const tagType = `${className.red ? 'error' : ''}${className.green ? 'success' : ''}`
+                r.push({ name: 'MA' + n, value: ma.toFixed(3), className, tagType })
                 break
             default:
                 break;
@@ -63,14 +63,6 @@ const itemList = computed(() => {
     flex-wrap: wrap;
     margin-bottom: .5rem;
     gap: .25rem;
-
-    .red {
-        color: #ee2500;
-    }
-
-    .green {
-        color: #093;
-    }
 }
 
 .fade-enter-active,

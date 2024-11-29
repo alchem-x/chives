@@ -1,5 +1,8 @@
 <template>
     <div class="stock-quote-container">
+        <template v-if="stockStore.dataLoading || !stockStore.stockData">
+            <LoadingSegment />
+        </template>
         <template v-if="stockStore.stockData">
             <div class="item-container">
                 <div class="item" v-for="(it) of items">
@@ -14,8 +17,8 @@
                     </template>
                     <template #header-extra>
                         <NFlex size="small">
-                            <SnowballLink />
                             <TVLink />
+                            <SnowballLink />
                         </NFlex>
                     </template>
                     <div class="item-container">
@@ -27,9 +30,7 @@
                 </NCollapseItem>
             </NCollapse>
         </template>
-        <template v-else>
-            <LoadingSegment />
-        </template>
+
     </div>
 </template>
 
