@@ -116,7 +116,7 @@ const columns = [
         }
     },
     {
-        title: '状态',
+        title: '监控',
         className: 'column-status',
         render: (it) => {
             async function onChangeStatus(ev) {
@@ -190,9 +190,12 @@ onBeforeUnmount(() => {
         }
     }
 
+    :deep(.column-comment) {
+        text-wrap-mode: nowrap;
+    }
+
     :deep(.td-event) {
         display: flex;
-        flex-wrap: wrap;
 
         .n-base-selection__border,
         .n-input__border {

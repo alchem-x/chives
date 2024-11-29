@@ -69,7 +69,7 @@ const info = computed(() => {
             { name: '52周最低', value: toFixed2(quote.high52w) },
             { name: '货币单位', value: quote.currency, },
             { name: '交易所', value: quote.exchange, },
-            { name: '状态', value: market.status, },
+            { name: '监控', value: market.status, },
         ]
         const Stock = () => (
             <a href={getSnowballLink(quote.symbol)} target="_blank">

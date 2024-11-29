@@ -72,7 +72,7 @@ function createWatchItemForm({ formRef, formState }) {
                     <NFormItem label="目标价格" path="value">
                         <NInput vModel:value={formState.value} placeholder={rules.value.message} clearable />
                     </NFormItem>
-                    <NFormItem label="状态" path="status">
+                    <NFormItem label="监控" path="status">
                         <NSwitch vModel:value={formState.enabled}>
                             {stateSwitchSlots}
                         </NSwitch>

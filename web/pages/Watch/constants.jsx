@@ -11,6 +11,6 @@ export const WATCH_TYPE_OPTIONS = [
 ]
 
 export const stateSwitchSlots = {
-    checked: () => <span>监控</span>,
-    unchecked: () => <span>已停</span>
+    checked: () => <span></span>,
+    unchecked: () => <span></span>
 }
