@@ -27,7 +27,7 @@ function onDelete(ev) {
 .recently-stock-container {
     margin-top: .5rem;
     display: flex;
-    gap: .5rem;
+    gap: .25rem;
     flex-wrap: wrap;
 }
 </style>
