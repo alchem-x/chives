@@ -2,8 +2,9 @@
     <img :src="'/images/snowball.png'">
 </template>
 
-<style scoped>
+<style scoped lang="less">
 img {
-    width: 16px;
+    width: 15px;
+    height: 15px;
 }
 </style>
