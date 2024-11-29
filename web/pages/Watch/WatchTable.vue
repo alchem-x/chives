@@ -201,7 +201,8 @@ onBeforeUnmount(() => {
     }
 
     :deep(.column-price) {
-        white-space: pre-line;
+        white-space-collapse: preserve;
+        text-wrap-mode: nowrap;
     }
 
     @container (max-width: 680px) {
