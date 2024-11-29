@@ -56,8 +56,8 @@ const EventData = ({ record }) => {
     )
 }
 
-const PriceLabel = ({ record, alt = '' }) => {
-    const currentPrice = getCurrentPriceItem(record)
+const PriceLabel = ({ record, alt = '', wrap }) => {
+    const currentPrice = getCurrentPriceItem(record, wrap)
     if (currentPrice.value) {
         return (
             <span style={currentPrice.style}>{currentPrice.value}</span>
@@ -96,7 +96,7 @@ const columns = [
         title: '价格',
         className: 'column-price',
         render: (it) => (
-            <PriceLabel record={it} alt="-" />
+            <PriceLabel record={it} alt="-" wrap />
         ),
     },
     {
@@ -198,6 +198,10 @@ onBeforeUnmount(() => {
     :deep(.td-value) {
         display: none;
         color: #666
+    }
+
+    :deep(.column-price) {
+        white-space: pre-line;
     }
 
     @container (max-width: 680px) {

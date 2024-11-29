@@ -12,8 +12,8 @@ export const styleColorGreen = {
     color: '#093',
 }
 
-export const getCurrentPriceItem = (quote) => {
-    const value = quote.current ? `${toFixed3(quote.current)} (${quote.chg >= 0 ? `+${toFixed3(quote.chg) ?? 0}` : toFixed3(quote.chg)}, ${quote.percent >= 0 ? `+${toFixed2(quote.percent) ?? 0}` : toFixed2(quote.percent)}%)` : ''
+export const getCurrentPriceItem = (quote, wrap) => {
+    const value = quote.current ? `${toFixed3(quote.current)} ${wrap ? '\n' : ''}(${quote.chg >= 0 ? `+${toFixed3(quote.chg) ?? 0}` : toFixed3(quote.chg)}, ${quote.percent >= 0 ? `+${toFixed2(quote.percent) ?? 0}` : toFixed2(quote.percent)}%)` : ''
     const className = { red: quote.chg > 0, green: quote.chg < 0 }
     const style = {}
     if (className.red) {
