@@ -50,8 +50,8 @@ const EventData = ({ record }) => {
     }
     return (
         <div class={['td-event', record.type]}>
-            <NSelect vModel:value={record.type} onUpdate:value={onChangeType} options={WATCH_TYPE_OPTIONS} style="width: 100px;" />
-            <NInput vModel:value={record.value} onBlur={onChangeValue} style="width: 104px;" placeholder="输入价格" clearable />
+            <NSelect size="small" vModel:value={record.type} onUpdate:value={onChangeType} options={WATCH_TYPE_OPTIONS} style="width: 100px;" />
+            <NInput size="small" vModel:value={record.value} onBlur={onChangeValue} style="width: 104px;" placeholder="输入价格" clearable />
         </div>
     )
 }
@@ -117,6 +117,7 @@ const columns = [
     },
     {
         title: '状态',
+        className: 'column-status',
         render: (it) => {
             async function onChangeStatus(ev) {
                 await watchStore.updateWatchItem({ ...it, enabled: ev, })
@@ -124,14 +125,14 @@ const columns = [
                 message.success(it.enabled ? '开始盯盘' : '停止盯盘')
             }
             return (
-                <>
-                    <NSwitch value={it.enabled} onUpdate:value={onChangeStatus}>
+                <div class="td-status">
+                    <NSwitch size="small" value={it.enabled} onUpdate:value={onChangeStatus}>
                         {stateSwitchSlots}
                     </NSwitch>
-                    <NButton class="button-state-action" onClick={() => createUpdateWatchItemModal(it)}>
+                    <NButton size="small" class="button-state-action" onClick={() => createUpdateWatchItemModal(it)}>
                         编辑
                     </NButton>
-                </>
+                </div>
             )
         },
     },
@@ -191,7 +192,6 @@ onBeforeUnmount(() => {
 
     :deep(.td-event) {
         display: flex;
-        gap: .5rem;
         flex-wrap: wrap;
 
         .n-base-selection__border,
@@ -221,9 +221,16 @@ onBeforeUnmount(() => {
     }
 
     @container (max-width: 680px) {
+
+        :deep(.n-data-table-table) {
+
+            .n-data-table-td {
+                padding: 2px 8px;
+            }
+        }
+
         :deep(.column-stock) {
             .td-event {
-                margin-top: .5rem;
                 display: flex;
             }
         }
@@ -242,7 +249,7 @@ onBeforeUnmount(() => {
 
         :deep(.button-state-action) {
             display: flex;
-            margin-top: .5rem;
+            margin-top: .25rem;
         }
 
         :deep(.td-value) {
@@ -252,6 +259,14 @@ onBeforeUnmount(() => {
 
         :deep(.column-price) {
             display: none;
+        }
+
+        :deep(.column-status) {
+            .td-status {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
         }
     }
 }
