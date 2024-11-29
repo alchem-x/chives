@@ -30,7 +30,6 @@
 <script setup>
 import { NButton, NFlex, NPageHeader } from 'naive-ui'
 import GitHubIcon from '#web/common/GitHubIcon.vue'
-import TradingViewIcon from '#web/common/TradingViewIcon.vue'
 </script>
 
 
