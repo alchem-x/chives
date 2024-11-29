@@ -96,7 +96,7 @@ const columns = [
         title: '价格',
         className: 'column-price',
         render: (it) => (
-            <PriceLabel record={it} alt="-" wrap />
+            <PriceLabel record={it} alt="-" />
         ),
     },
     {
@@ -140,7 +140,7 @@ const columns = [
         className: 'column-action',
         render: (it) => {
             return (
-                <NButton onClick={() => createUpdateWatchItemModal(it)}>
+                <NButton text onClick={() => createUpdateWatchItemModal(it)}>
                     编辑
                 </NButton>
             )
@@ -174,15 +174,30 @@ onBeforeUnmount(() => {
 
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .list-table-container {
     box-sizing: border-box;
     container-type: inline-size;
+
+    :deep(.n-data-table-table) {
+        .n-data-table-th {
+            padding: 4px 8px;
+        }
+
+        .n-data-table-td {
+            padding: 0 8px;
+        }
+    }
 
     :deep(.td-event) {
         display: flex;
         gap: .5rem;
         flex-wrap: wrap;
+
+        .n-base-selection__border,
+        .n-input__border {
+            border: none;
+        }
     }
 
     :deep(.column-stock) {

@@ -12,7 +12,7 @@ provide('GUI_STATE', useGUI())
 <style scoped lang="less">
 :deep(.app-container) {
     box-sizing: border-box;
-    max-width: 800px;
+    max-width: 900px;
     min-height: 100vh;
     margin: 0 auto;
 }
