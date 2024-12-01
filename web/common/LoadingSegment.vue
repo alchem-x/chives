@@ -4,9 +4,6 @@
     </div>
 </template>
 
-<script setup>
-</script>
-
 <style scoped lang="less">
 .loading-segment {
     height: 100%;
