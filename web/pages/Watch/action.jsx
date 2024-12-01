@@ -6,7 +6,7 @@ import { useWatchStore } from '#web/store/watch.js'
 import StockInput from '#web/common/StockInput.vue'
 import { WATCH_TYPE_OPTIONS, stateSwitchSlots } from './constants.jsx'
 
-const FooterClassName = css`
+const footerClassName = css`
   display: flex;
   justify-content: end;
   gap: .5rem;
@@ -116,7 +116,7 @@ export function createNewWatchItemModal(item) {
         content: () => (<WatchItemForm item={item} />),
         footer: () => {
             return (
-                <div class={FooterClassName}>
+                <div class={footerClassName}>
                     <NButton onClick={() => m.destroy()}>
                         关闭
                     </NButton>
@@ -166,7 +166,7 @@ export function createUpdateWatchItemModal(item) {
         content: () => (<WatchItemForm item={item} />),
         footer: () => {
             return (
-                <div class={FooterClassName}>
+                <div class={footerClassName}>
                     <NButton class="btn-delete" loading={watchStore.deleteLoading} type="error" onClick={onDelete}>
                         删除
                     </NButton>
