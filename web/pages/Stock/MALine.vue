@@ -26,6 +26,14 @@ const itemList = computed(() => {
     let sum = 0
     let i = 0
     const closeIndex = column.findIndex((it) => it === 'close')
+    const getTagType = (ma) => {
+        if (ma > current) {
+            return 'error'
+        }
+        if (ma < current) {
+            return 'success'
+        }
+    }
     while (i < item.length) {
         sum += item[item.length - 1 - i][closeIndex]
         const n = i + 1
@@ -44,9 +52,7 @@ const itemList = computed(() => {
             case 2000:
             case 2500:
                 const ma = (sum / n)
-                const className = { red: ma > current, green: ma < current }
-                const tagType = `${className.red ? 'error' : ''}${className.green ? 'success' : ''}`
-                r.push({ name: 'MA' + n, value: ma.toFixed(3), className, tagType })
+                r.push({ name: 'MA' + n, value: ma.toFixed(3), tagType: getTagType(ma) })
                 break
             default:
                 break;
