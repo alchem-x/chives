@@ -14,17 +14,19 @@ export const styleColorGreen = {
 
 export const getCurrentPriceItem = (quote, wrap) => {
     const value = quote.current ? `${toFixed3(quote.current)} ${wrap ? '\n' : ''}(${quote.chg >= 0 ? `+${toFixed3(quote.chg) ?? 0}` : toFixed3(quote.chg)}, ${quote.percent >= 0 ? `+${toFixed2(quote.percent) ?? 0}` : toFixed2(quote.percent)}%)` : ''
-    const className = { red: quote.chg > 0, green: quote.chg < 0 }
+    const red = quote.chg > 0
+    const green= quote.chg < 0
+    const className = { red, green, }
     const style = {}
-    if (className.red) {
+    if (red) {
         Object.assign(style, styleColorRed)
     }
-    if (className.green) {
+    if (green) {
         Object.assign(style, styleColorGreen)
     }
     return {
         value,
-        className,
         style,
+        className,
     }
 }
