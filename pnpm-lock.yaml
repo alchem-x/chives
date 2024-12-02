@@ -70,11 +70,11 @@ importers:
         specifier: ^0.20.0
         version: 0.20.0
       naive-ui:
-        specifier: ^2.40.1
-        version: 2.40.1(vue@3.5.13)
+        specifier: ^2.40.3
+        version: 2.40.3(vue@3.5.13)
       pinia:
-        specifier: ^2.2.6
-        version: 2.2.6(vue@3.5.13)
+        specifier: ^2.2.8
+        version: 2.2.8(vue@3.5.13)
       terser-webpack-plugin:
         specifier: ^5.3.10
         version: 5.3.10(webpack@5.96.1)
@@ -85,8 +85,8 @@ importers:
         specifier: ^17.4.2
         version: 17.4.2(vue@3.5.13)(webpack@5.96.1)
       vue-router:
-        specifier: ^4.4.5
-        version: 4.4.5(vue@3.5.13)
+        specifier: ^4.5.0
+        version: 4.5.0(vue@3.5.13)
       vue-style-loader:
         specifier: ^4.1.3
         version: 4.1.3
@@ -100,8 +100,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(webpack-cli@5.1.4)(webpack@5.96.1)
       zx:
-        specifier: ^8.2.2
-        version: 8.2.2
+        specifier: ^8.2.4
+        version: 8.2.4
 
 packages:
 
@@ -2294,8 +2294,8 @@ packages:
     resolution: {integrity: sha512-2eznPJP8z2BFLX50tf0LuODrpINqP1RVIm/CObbTcBRITQgmC/TjcREF1NeTBzIcR5XO/ukWo+YHOjBbFwIupg==}
     hasBin: true
 
-  naive-ui@2.40.1:
-    resolution: {integrity: sha512-3NkL+vLRQZKQxCHXa+7xiD6oM74OrQELaehDkGYRYpr6kjT+JJB+Z7h+5LC70gn8VkbgCAETv0+uRWF+6MLlgQ==}
+  naive-ui@2.40.3:
+    resolution: {integrity: sha512-TpgYfOg0SNlG4HHhTdFnFcPc1trZiX3r10Pn6biyEgRoi6ZC5qbsY8xgKsqQuG4nWj2PHLT8pPVEkt2pKOlxag==}
     peerDependencies:
       vue: ^3.0.0
 
@@ -2497,8 +2497,8 @@ packages:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
 
-  pinia@2.2.6:
-    resolution: {integrity: sha512-vIsR8JkDN5Ga2vAxqOE2cJj4VtsHnzpR1Fz30kClxlh0yCHfec6uoMeM3e/ddqmwFUejK3NlrcQa/shnpyT4hA==}
+  pinia@2.2.8:
+    resolution: {integrity: sha512-NRTYy2g+kju5tBRe0oNlriZIbMNvma8ZJrpHsp3qudyiMEA8jMmPPKQ2QMHg0Oc4BkUyQYWagACabrwriCK9HQ==}
     peerDependencies:
       '@vue/composition-api': ^1.4.0
       typescript: '>=4.4.4'
@@ -3113,8 +3113,8 @@ packages:
       vue:
         optional: true
 
-  vue-router@4.4.5:
-    resolution: {integrity: sha512-4fKZygS8cH1yCyuabAXGUAsyi1b2/o/OKgu/RUb+znIYOxPRxdkytJEx+0wGcpBE1pX6vUgh5jwWOKRGvuA/7Q==}
+  vue-router@4.5.0:
+    resolution: {integrity: sha512-HDuk+PuH5monfNuY+ct49mNmkCRK4xJAV9Ts4z9UFc4rzdDnxQLyCMGGc8pKhZhHTVzfanpNwB/lwqevcBwI4w==}
     peerDependencies:
       vue: ^3.2.0
 
@@ -3254,8 +3254,8 @@ packages:
     resolution: {integrity: sha512-b4JR1PFR10y1mKjhHY9LaGo6tmrgjit7hxVIeAmyMw3jegXR4dhYqLaQF5zMXZxY7tLpMyJeLjr1C4rLmkVe8g==}
     engines: {node: '>=12.20'}
 
-  zx@8.2.2:
-    resolution: {integrity: sha512-HSIdpU5P2ONI0nssnhsUZNCH9Sd/Z8LIFk9n8QTbu6JufzJx7qR7ajrMN21s06JqWSApcN012377iWsv8Vs5bg==}
+  zx@8.2.4:
+    resolution: {integrity: sha512-g9wVU+5+M+zVen/3IyAZfsZFmeqb6vDfjqFggakviz5uLK7OAejOirX+jeTOkyvAh/OYRlCgw+SdqzN7F61QVQ==}
     engines: {node: '>= 12.17.0'}
     hasBin: true
 
@@ -5814,7 +5814,7 @@ snapshots:
       dns-packet: 5.6.1
       thunky: 1.1.0
 
-  naive-ui@2.40.1(vue@3.5.13):
+  naive-ui@2.40.3(vue@3.5.13):
     dependencies:
       '@css-render/plugin-bem': 0.15.14(css-render@0.15.14)
       '@css-render/vue3-ssr': 0.15.14(vue@3.5.13)
@@ -6023,7 +6023,7 @@ snapshots:
   pify@4.0.1:
     optional: true
 
-  pinia@2.2.6(vue@3.5.13):
+  pinia@2.2.8(vue@3.5.13):
     dependencies:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.13
@@ -6714,7 +6714,7 @@ snapshots:
     optionalDependencies:
       vue: 3.5.13
 
-  vue-router@4.4.5(vue@3.5.13):
+  vue-router@4.5.0(vue@3.5.13):
     dependencies:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.13
@@ -6904,7 +6904,7 @@ snapshots:
 
   yocto-queue@1.1.1: {}
 
-  zx@8.2.2:
+  zx@8.2.4:
     optionalDependencies:
       '@types/fs-extra': 11.0.4
       '@types/node': 22.8.4

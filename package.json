@@ -41,7 +41,7 @@
     "less-loader": "^12.2.0",
     "lightweight-charts": "^4.2.1",
     "lil-gui": "^0.20.0",
-    "naive-ui": "^2.40.2",
+    "naive-ui": "^2.40.3",
     "pinia": "^2.2.8",
     "terser-webpack-plugin": "^5.3.10",
     "vue": "^3.5.13",
