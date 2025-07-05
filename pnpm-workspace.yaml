@@ -1,0 +1,3 @@
+onlyBuiltDependencies:
+  - sqlite3
+  - vue-demi
