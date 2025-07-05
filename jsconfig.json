@@ -1,17 +1,17 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "#server/*": [
-                "./server/*"
-            ],
-            "#web/*": [
-                "./web/*"
-            ]
-        }
-    },
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "#server/*": [
+        "./server/*"
+      ],
+      "#web/*": [
+        "./web/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
